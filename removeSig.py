@@ -19,12 +19,9 @@ def check(fileName, offset):
 
 off = int(0x0109d074)
 
-data = "C:/Users/adamz/Desktop/Code/AndroidModding/Raws/BeatSaber/base/lib/armeabi-v7a/libil2cpp.so"
-
 if __name__ == "__main__":
     if len(sys.argv) == 1:
-        set_bytes(data, off, bytes([0x01, 0x00, 0xa0, 0xe3]))
-        check(data, off)
+        print("Provide the directory to libil2cpp.so!")
     else:
         set_bytes(sys.argv[1], off, bytes([0x01, 0x00, 0xa0, 0xe3]))
         check(sys.argv[1], off)
