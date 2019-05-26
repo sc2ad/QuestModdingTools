@@ -39,6 +39,17 @@ def writeAlignedString(fs, st):
 def writeAlign(fs, offset):
     write0(fs, (4 - offset % 4))
 
+def readCString(fs):
+    s = ""
+    while bytes([fs.peek()[0]]) != b'\x00':
+        s += read(fs, 1).decode()
+    return s
+
+def writeCString(fs, s):
+    for item in s:
+        write(fs, bytes([ord(item)]))
+    write0(fs, 1)
+
 def readBool(fs):
     return struct.unpack("?", read(fs, 1))[0]
 
@@ -51,17 +62,29 @@ def readUInt8(fs):
 def writeUInt8(fs, integer):
     write(fs, struct.pack("B", integer))
 
+def readInt16(fs):
+    return struct.unpack("h", read(fs, 2))[0]
+
+def writeInt16(fs, integer):
+    write(fs, struct.pack("h", integer))
+
+def readUInt16(fs):
+    return struct.unpack("H", read(fs, 2))[0]
+
+def writeUInt16(fs, integer):
+    write(fs, struct.pack("H", integer))
+
 def readInt32(fs):
     return struct.unpack("i", read(fs, 4))[0]
 
 def writeInt32(fs, integer):
     write(fs, struct.pack("i", integer))
 
-def readUInt32(fs):
-    return struct.unpack("I", read(fs, 4))[0]
+def readUInt32(fs, prefix='<'):
+    return struct.unpack(prefix + "I", read(fs, 4))[0]
 
-def writeUInt32(fs, integer):
-    write(fs, struct.pack("I", integer))
+def writeUInt32(fs, integer, prefix='<'):
+    write(fs, struct.pack(prefix + "I", integer))
 
 def readFloat(fs):
     return struct.unpack("f", read(fs, 4))[0]

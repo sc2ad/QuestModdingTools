@@ -33,7 +33,7 @@ def readAudioClip(fs):
 	o['PreloadAudioData'] = readBool(fs)
 	o['LoadInBackground'] = readBool(fs)
 	o['Legacy3D'] = readBool(fs)
-	readAlign(fs, f.tell())
+	readAlign(fs, fs.tell())
 	o['Resource'] = readStreamedResource(fs)
 	o['CompressionFormat'] = readInt32(fs)
 	return o
@@ -50,6 +50,7 @@ def writeAudioClip(fs, o):
 	writeBool(fs, o['PreloadAudioData'])
 	writeBool(fs, o['LoadInBackground'])
 	writeBool(fs, o['Legacy3D'])
+	writeAlign(fs, fs.tell())
 	writeStreamedResource(fs, o['Resource'])
 	writeInt32(fs, o['CompressionFormat'])
 

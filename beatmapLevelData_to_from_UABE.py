@@ -87,8 +87,6 @@ def writeBeatmapLevel(fs, obj):
     writePtr(f, obj["_environmentSceneInfo"])
     writeBeatmaps(f, obj["_difficultyBeatmapSets"])
 
-d = "C:/Users/adamz/Desktop/Code/AndroidModding/Raws/BeatSaber/UABE Dumps/unnamed asset-sharedassets17.assets.split0-69.dat"
-
 if __name__ == '__main__':
 
     parser = argparse.ArgumentParser(description="Provides a converter for BeatmapLevelData from .dat files (exported from UABE)")
