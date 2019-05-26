@@ -3,21 +3,28 @@ import struct
 
 def set_bytes(fileName, offset, bts):
     with open(fileName, "r+b") as fh:
+        fh.seek(offset - 4)
+        print("Area Bytes:\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
+        print("\t\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
+        print("\t\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
         fh.seek(offset)
-        print("Wrote: " + str(bts) + " to offset: " + str(hex(offset)))
+        print("Wrote: " + str(bts.hex()) + " to offset: " + str(offset) + " replacing: " + str(fh.peek()[:len(bts)].hex()))
         fh.write(bts)
 
 def check(fileName, offset):
     print("VALIDATION:")
-    with open(fileName, 'rb') as f:
-        f.seek(offset)
-        print("Value 0: " + str(hex(struct.unpack('B', f.read(1))[0])))
-        print("Value 1: " + str(hex(struct.unpack('B', f.read(1))[0])))
-        print("Value 2: " + str(hex(struct.unpack('B', f.read(1))[0])))
-        print("Value 3: " + str(hex(struct.unpack('B', f.read(1))[0])))
-        print("Value 4 (after): " + str(hex(struct.unpack('B', f.read(1))[0])))
+    with open(fileName, 'rb') as fh:
+        fh.seek(offset - 4)
+        print("Area Bytes:\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
+        print("\t\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
+        print("\t\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
 
-off = int(0x0109d074)
+off = 0x0109d074 - 0x10002
+
+# Looking for:
+# 06 00 00 1a 
+# 01 00 a0 e3 
+# 00 00 9f e7 
 
 if __name__ == "__main__":
     if len(sys.argv) == 1:
