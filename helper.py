@@ -91,6 +91,20 @@ def writePtr(fs, ptr):
     writeInt32(fs, ptr['FileID'])
     writeInt64(fs, ptr['PathID'])
 
+def readVector(fs):
+    o = {}
+    o['size'] = readUInt32(fs)
+    o['Array'] = []
+    for _ in range(o['size']):
+        data = {"data": readUInt8(fs)}
+        o['Array'].append(data)
+    return o
+
+def writeVector(fs, o):
+    writeUInt32(fs, o['size'])
+    for item in o['Array']:
+        writeUInt8(fs, item['data'])
+
 def serialize(o, p):
     with open(p, "w") as f:
         json.dump(o, f, skipkeys=True, indent=4)

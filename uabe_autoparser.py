@@ -50,10 +50,12 @@ def getType(s):
         return "Float"
     elif s == "bool":
         return "Bool"
-    elif s.startswith("PPtr"):
+    elif s.startswith("PPtr<"):
         return "Ptr"
     elif s == "SInt64":
         return "Int64"
+    elif s == "vector":
+        return "Vector"
     else:
         return s
 
@@ -68,20 +70,22 @@ def load(fs):
         spl = k.split(" ")
         if spl[2].startswith("m_"):
             spl[2] = spl[2][2:]
+        typ = getType(spl[1])
         
         if type(m[k]) == dict:
+            if typ == "Vector" or typ == "Ptr":
+                o[spl[2]] = typ
+                continue
             o2 = {}
             o2['name'] = spl[1]
             for k2 in m[k].keys():
                 spl2 = k2.split(" ")
                 if spl2[2].startswith("m_"):
                     spl2[2] = spl2[2][2:]
-                
-                typ = getType(spl2[1])
-                o2[spl2[2]] = typ
+                typ2 = getType(spl2[1])
+                o2[spl2[2]] = typ2
             o['subs'].append(o2)
         
-        typ = getType(spl[1])
         o[spl[2]] = typ
     return o
 
