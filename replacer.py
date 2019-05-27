@@ -10,13 +10,16 @@ levelCollectionsDir = "LevelCollections"
 levelPacksDir = "LevelPacks"
 
 def findData(assetJson, directory):
-    os.mkdir(directory)
     songD = os.path.join(directory, songDir)
-    os.mkdir(songD)
     levelCD = os.path.join(directory, levelCollectionsDir)
-    os.mkdir(levelCD)
     levelPD = os.path.join(directory, levelPacksDir)
-    os.mkdir(levelPD)
+    try:
+        os.mkdir(directory)
+        os.mkdir(songD)
+        os.mkdir(levelCD)
+        os.mkdir(levelPD)
+    except FileExistsError:
+        pass
     for i in range(len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]
         if obj['ClassID'] == 114:
@@ -88,9 +91,30 @@ def overwriteJson(objects, metadata, header, index, data={}):
                     item['Offset'] += delta
     return objects
 
-def add():
+def addObject(assetJson, data, metadata):
     # Involves increasing the metadata length, adding a metadata and standard object, increasing the file length, and write the json
-    pass
+    index = assetJson['Metadata']['ObjectCount'] + 1
+
+    metadataObjectSize = 20
+
+    assetJson['Header']['MetadataSize'] += metadataObjectSize
+    assetJson['Header']['FileSize'] += metadataObjectSize
+    assetJson['Header']['DataOffset'] += metadataObjectSize
+
+    metadata['PathID'] = index
+    metadata['Offset'] = assetJson['Header']['FileSize'] - assetJson['Header']['DataOffset']
+    data['PathID'] = index
+    data['Offset'] = metadata['Offset']
+    data['ByteSize'] = metadata['ByteSize']
+    data['ClassID'] = 114 # Script class
+
+    # metadata['ByteSize'] #TODO
+
+    assetJson['Header']['FileSize'] += metadata['ByteSize']
+
+    assetJson['Metadata']['ObjectCount'] += 1
+    assetJson['Metadata']['Objects'].append(metadata)
+    assetJson['Objects'].append(data)
 
 
 def getAsset(path):
@@ -153,10 +177,16 @@ if __name__ == "__main__":
     parser.add_argument("--json-out", type=str, help="The directory for the .json files of all the data.")
     parser.add_argument("--json-in", type=str, help="The directory to load the .json files of all the data to overwrite.")
     parser.add_argument("--output", type=str, help="The .json or .assets or .split file to output the modified .assets data. If .split is chosen, will first convert to .assets and then split.")
-    
+    parser.add_argument("--add-object", type=str, help="The path to a .json file to ADD as an object to the .assets data. This file must be structured very specifically.")
+
     args = parser.parse_args()
 
     asset = getAsset(args.asset_path)
+
+    if args.add_object:
+        d = deserialize(args.add_object)
+        addObject(asset, d['Data'], d['Metadata'])
+
     if args.json_out:
         findData(asset, args.json_out)
     elif args.json_in:
