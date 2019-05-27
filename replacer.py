@@ -5,15 +5,37 @@ from splitter import *
 
 from load_assets import *
 
-def findSongLevels(assetJson, directory):
+songDir = "SongLevels"
+levelCollectionsDir = "LevelCollections"
+levelPacksDir = "LevelPacks"
+
+def findData(assetJson, directory):
+    os.mkdir(directory)
+    songD = os.path.join(directory, songDir)
+    os.mkdir(songD)
+    levelCD = os.path.join(directory, levelCollectionsDir)
+    os.mkdir(levelCD)
+    levelPD = os.path.join(directory, levelPacksDir)
+    os.mkdir(levelPD)
     for i in range(len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]
         if obj['ClassID'] == 114:
             if obj['MonoScript']['PathID'] == 644:
                 # Then this is a song level
                 print("Found a song with name: " + obj['Name'] + " at index: " + str(i))
-                serialize(obj, os.path.join(directory, obj['Name']) + ".json")
-                print("Serialized JSON saved to: " + os.path.join(directory, obj['Name']))
+                serialize(obj, os.path.join(songD, obj['Name']) + ".json")
+                print("Serialized JSON saved to: " + os.path.join(songD, obj['Name']))
+            elif obj['MonoScript']['PathID'] == 762:
+                # Then this is a beatmap level collection
+                print("Found a beatmap level collection with name: " + obj['Name'] + " at index: " + str(i))
+                serialize(obj, os.path.join(levelCD, obj['Name']) + ".json")
+                print("Serialized JSON saved to: " + os.path.join(levelCD, obj['Name']))
+            elif obj['MonoScript']['PathID'] == 1480:
+                # Then this is a beatmap level pack
+                print("Found a beatmap level pack with name: " + obj['Name'] + " at index: " + str(i))
+                serialize(obj, os.path.join(levelPD, obj['Name']) + ".json")
+                print("Serialized JSON saved to: " + os.path.join(levelPD, obj['Name']))
+        
 
 def overwriteJson(objects, metadata, header, index, data={}):
     bytecheck = False
@@ -26,14 +48,20 @@ def overwriteJson(objects, metadata, header, index, data={}):
         if key == 'Offset':
             # Used to dynamically calculate offsets.
             continue
-        try:
+        if type(data[key]) == str:
             delta = len(data[key]) - len(objects[index][key])
             nLen += delta
             if delta != 0:
                 print("Found delta with key: " + key + " with old: " + str(objects[index][key]) + " new: " + str(data[key]))
-        except TypeError:
-            # Not a container, static size
-            pass
+        elif type(data[key]) == dict:
+            if 'Array' in data[key].keys():
+                l = nLen
+                for item in objects[index][key]['Array']:
+                    nLen -= item['ByteSize']
+                for item in data[key]['Array']:
+                    nLen += item['ByteSize']
+                if nLen != l:
+                    print("Found delta with key: " + key + " in list with newLen: " + str(len(data[key]['Array'])) + " oldLen: " + str(len(objects[index][key]['Array'])))
         objects[index][key] = data[key]
     if bytecheck and nLen != oldLen:
         objects[index]['ByteSize'] = nLen
@@ -59,6 +87,11 @@ def overwriteJson(objects, metadata, header, index, data={}):
                     # Matching item, increase offset
                     item['Offset'] += delta
     return objects
+
+def add():
+    # Involves increasing the metadata length, adding a metadata and standard object, increasing the file length, and write the json
+    pass
+
 
 def getAsset(path):
     if path.endswith(".json"):
@@ -94,6 +127,9 @@ def saveAsset(asset, path, asset_path):
 def getOffsetIncreasingObjectsList(assetJson):
     return sorted(assetJson['Objects'], key=lambda ob: ob['Offset'])
     
+def setList(assetJson, i, obj, d, dire):
+    print("Deserialized JSON read from: " + os.path.join(os.path.join(d, dire), obj['Name']))
+    return overwriteJson(getOffsetIncreasingObjectsList(assetJson), assetJson['Metadata'], assetJson['Header'], i, deserialize(os.path.join(os.path.join(d, dire), obj['Name']) + ".json"))
 def overwriteAllSongsFromDirectory(assetJson, directory):
     for i in range(len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]
@@ -101,23 +137,30 @@ def overwriteAllSongsFromDirectory(assetJson, directory):
             if obj['MonoScript']['PathID'] == 644:
                 # Then this is a song level
                 print("Found a song with name: " + obj['Name'] + " at index: " + str(i))
-                assetJson['Objects'] = overwriteJson(getOffsetIncreasingObjectsList(assetJson), assetJson['Metadata'], assetJson['Header'], i, deserialize(os.path.join(directory, obj['Name']) + ".json"))
-                print("Deserialized JSON read from: " + os.path.join(directory, obj['Name']))
+                assetJson['Objects'] = setList(assetJson, i, obj, directory, songDir)
+            elif obj['MonoScript']['PathID'] == 762:
+                # Then this is a beatmap level collection
+                print("Found a beatmap level collection with name: " + obj['Name'] + " at index: " + str(i))
+                assetJson['Objects'] = setList(assetJson, i, obj, directory, levelCollectionsDir)
+            elif obj['MonoScript']['PathID'] == 1480:
+                # Then this is a beatmap level pack
+                print("Found a beatmap level pack with name: " + obj['Name'] + " at index: " + str(i))
+                assetJson['Objects'] = setList(assetJson, i, obj, directory, levelPacksDir)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The main file for making changes to .assets. Allows for differing length read/writes.")
     parser.add_argument("asset_path", type=str, help="The path to the .assets file or append .split to read from splits. This also accepts .json files, but will not save as .assets or as .splits if chosen.")
-    parser.add_argument("--level-out", type=str, help="The directory for the .json files of all the level data.")
-    parser.add_argument("--level-in", type=str, help="The directory to load the .json files of all the level data to overwrite.")
+    parser.add_argument("--json-out", type=str, help="The directory for the .json files of all the data.")
+    parser.add_argument("--json-in", type=str, help="The directory to load the .json files of all the data to overwrite.")
     parser.add_argument("--output", type=str, help="The .json or .assets or .split file to output the modified .assets data. If .split is chosen, will first convert to .assets and then split.")
     
     args = parser.parse_args()
 
     asset = getAsset(args.asset_path)
-    if args.level_out:
-        findSongLevels(asset, args.level_out)
-    elif args.level_in:
-        overwriteAllSongsFromDirectory(asset, args.level_in)
+    if args.json_out:
+        findData(asset, args.json_out)
+    elif args.json_in:
+        overwriteAllSongsFromDirectory(asset, args.json_in)
     
     if args.output:
         if not args.output.endswith('.json') and args.asset_path.endswith('.json'):

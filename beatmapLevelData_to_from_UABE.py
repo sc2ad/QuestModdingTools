@@ -7,10 +7,11 @@ def readBeatmaps(fs):
     o = {}
     o['size'] = readUInt32(fs)
     o['Array'] = []
-    for i in range(o['size']):
+    for _ in range(o['size']):
         data = {}
         data['_beatmapCharacteristic'] = readPtr(fs)
         data['_difficultyBeatmaps'] = readDifficulties(fs)
+        data['ByteSize'] = 12 + data['_difficultyBeatmaps']['size'] * data['_difficultyBeatmaps']['Array'][0]['ByteSize']
         o['Array'].append(data)
     return o
 
@@ -24,13 +25,14 @@ def readDifficulties(fs):
     o = {}
     o['size'] = readUInt32(fs)
     o['Array'] = []
-    for i in range(o['size']):
+    for _ in range(o['size']):
         data = {}
         data['_difficulty'] = readInt32(fs)
         data['_difficultyRank'] = readInt32(fs)
         data['_noteJumpMovementSpeed'] = readFloat(fs)
         data['_noteJumpStartBeatOffset'] = readInt32(fs)
         data['_beatmapData'] = readPtr(fs)
+        data['ByteSize'] = 36
         o['Array'].append(data)
     return o
 

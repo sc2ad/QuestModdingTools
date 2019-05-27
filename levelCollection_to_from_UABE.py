@@ -11,12 +11,14 @@ def readBeatmapLevels(fs):
     o['size'] = readUInt32(fs)
     o['Array'] = []
     for _ in range(o['size']):
-        o['Array'].append(readPtr(fs))
+        dat = {'data': readPtr(fs)}
+        dat['ByteSize'] = 12
+        o['Array'].append(dat)
     return o
 def writeBeatmapLevels(fs, o):
     writeUInt32(fs, o['size'])
-    for item in range(o['Array']):
-        writePtr(fs, item)
+    for item in o['Array']:
+        writePtr(fs, item['data'])
 def readMonoBehaviour(fs, obj={}):
     o = {}
     o['GameObject'] = obj["GameObject"] if "GameObject" in obj.keys() else readPtr(fs)
@@ -28,7 +30,7 @@ def readMonoBehaviour(fs, obj={}):
 def writeMonoBehaviour(fs, o):
     writePtr(fs, o['GameObject'])
     writeUInt32(fs, o['Enabled'])
-    writePtr(fs, o['Script'])
+    writePtr(fs, o['MonoScript'])
     writeAlignedString(fs, o['Name'])
     writeBeatmapLevels(fs, o['_beatmapLevels'])
 

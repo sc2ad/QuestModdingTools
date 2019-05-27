@@ -151,6 +151,7 @@ def readVector(fs):
     o['Array'] = []
     for _ in range(o['size']):
         data = {"data": readUInt8(fs)}
+        data['ByteSize'] = 1
         o['Array'].append(data)
     return o
 

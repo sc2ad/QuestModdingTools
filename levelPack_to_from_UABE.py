@@ -21,7 +21,7 @@ def readMonoBehaviour(fs, obj={}):
 def writeMonoBehaviour(fs, o):
 	writePtr(fs, o['GameObject'])
 	writeUInt32(fs, o['Enabled'])
-	writePtr(fs, o['Script'])
+	writePtr(fs, o['MonoScript'])
 	writeAlignedString(fs, o['Name'])
 	writeAlignedString(fs, o['_packID'])
 	writeAlignedString(fs, o['_packName'])
