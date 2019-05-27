@@ -21,7 +21,7 @@ def combine(mainAssetPath):
     with open(os.path.join(d, name), 'wb') as fs:
         for (path, dirs, files) in os.walk(d):
             for f in files:
-                if f.startswith(name) and f != name:
+                if f.startswith(name) and f != name and ".split" in f:
                     with open(os.path.join(d, f), 'rb') as fr:
                         fs.write(fr.read())
                     print("Read: " + os.path.join(d, f))

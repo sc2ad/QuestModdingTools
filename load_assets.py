@@ -184,6 +184,8 @@ def readAsset(fs):
     o = {}
     o['Header'] = readHeader(fs)
     o['Metadata'] = readMetadata(fs)
+    print("Current: " + str(fs.tell()) + " Metadata end: " + str(o['Header']['MetadataSize'] + 20))
+    print("Going to data offset: " + str(o['Header']['DataOffset']))
     fs.seek(o['Header']['DataOffset'])
     o['DataLength'] = o['Header']['FileSize'] - o['Header']['DataOffset']
     o['Objects'] = []
@@ -229,7 +231,10 @@ def writeAsset(fs, fr, o):
                 print("Writing data at: " + str(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']) + " as unknown MonoBehaviour with size: " + str(obj['ByteSize']))
                 writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'])
             else:
-                print("Expected end: " + str(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']) + " actual end: " + str(fs.tell()))
+                end = obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']
+                # print("Expected end: " + str(end) + " actual end: " + str(fs.tell()))
+                if end - fs.tell() > 4:
+                    print("Delta expected detected! delta: " + str(end - fs.tell()) + " obj info: " + str(obj))
                 writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'] - fs.tell())
         elif obj['ClassID'] == 83:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip with size: " + str(obj['ByteSize']))
