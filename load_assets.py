@@ -226,7 +226,10 @@ def writeAsset(fs, fr, o):
         if obj['ClassID'] == 114:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as MonoBehaviour with size: " + str(obj['ByteSize']))
             if not writeBehaviour(fs, obj):
-                print(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'])
+                print("Writing data at: " + str(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']) + " as unknown MonoBehaviour with size: " + str(obj['ByteSize']))
+                writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'])
+            else:
+                print("Expected end: " + str(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']) + " actual end: " + str(fs.tell()))
                 writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'] - fs.tell())
         elif obj['ClassID'] == 83:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip with size: " + str(obj['ByteSize']))
