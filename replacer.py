@@ -8,18 +8,22 @@ from load_assets import *
 songDir = "SongLevels"
 levelCollectionsDir = "LevelCollections"
 levelPacksDir = "LevelPacks"
+audioClipsD = "AudioClips"
+
+def createD(directory):
+    if not os.path.exists(directory):
+        os.makedirs(directory)
 
 def findData(assetJson, directory):
     songD = os.path.join(directory, songDir)
     levelCD = os.path.join(directory, levelCollectionsDir)
     levelPD = os.path.join(directory, levelPacksDir)
-    try:
-        os.mkdir(directory)
-        os.mkdir(songD)
-        os.mkdir(levelCD)
-        os.mkdir(levelPD)
-    except FileExistsError:
-        pass
+    audioD = os.path.join(directory, audioClipsD)
+    createD(directory)
+    createD(songD)
+    createD(levelCD)
+    createD(levelPD)
+    createD(audioD)
     for i in range(len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]
         if obj['ClassID'] == 114:
@@ -38,7 +42,11 @@ def findData(assetJson, directory):
                 print("Found a beatmap level pack with name: " + obj['Name'] + " at index: " + str(i))
                 serialize(obj, os.path.join(levelPD, obj['Name']) + ".json")
                 print("Serialized JSON saved to: " + os.path.join(levelPD, obj['Name']))
-        
+        elif obj['ClassID'] == 83:
+            # This is an audio clip!
+            print("Found an audio clip with name: " + obj['Name'] + " at index: " + str(i))
+            serialize(obj, os.path.join(audioD, obj['Name']) + ".json")
+            print("Serialized JSON saved to: " + os.path.join(audioD, obj['Name']))
 
 def overwriteJson(objects, metadata, header, index, data={}):
     bytecheck = False
@@ -179,6 +187,10 @@ def overwriteAllSongsFromDirectory(assetJson, directory):
                 # Then this is a beatmap level pack
                 print("Found a beatmap level pack with name: " + obj['Name'] + " at index: " + str(i))
                 assetJson['Objects'] = setList(assetJson, i, obj, directory, levelPacksDir)
+        elif obj['ClassID'] == 83:
+            # Then this is an AuioClip!
+            print("Found an AudioClip with name: " + obj['Name'] + " at index: " + str(i))
+            assetJson['Objects'] = setList(assetJson, i, obj, directory, audioClipsD)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The main file for making changes to .assets. Allows for differing length read/writes.")
