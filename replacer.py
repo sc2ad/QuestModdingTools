@@ -114,7 +114,7 @@ def addObject(assetJson, data, metadata):
     data['PathID'] = index
     data['Offset'] = metadata['Offset']
     data['ByteSize'] = metadata['ByteSize']
-    data['ClassID'] = 114 # Script class
+    data['ClassID'] = 114 if 'ClassID' not in metadata.keys() else metadata['ClassID'] # Script class
     data['Fresh'] = True
 
     # metadata['ByteSize'] #TODO
@@ -198,15 +198,16 @@ if __name__ == "__main__":
     parser.add_argument("--json-out", type=str, help="The directory for the .json files of all the data.")
     parser.add_argument("--json-in", type=str, help="The directory to load the .json files of all the data to overwrite.")
     parser.add_argument("--output", type=str, help="The .json or .assets or .split file to output the modified .assets data. If .split is chosen, will first convert to .assets and then split.")
-    parser.add_argument("--add-object", type=str, help="The path to a .json file to ADD as an object to the .assets data. This file must be structured very specifically.")
+    parser.add_argument("--add-object", type=str, nargs='*', help="The path to a .json file to ADD as an object to the .assets data. This file must be structured very specifically.")
 
     args = parser.parse_args()
 
     asset = getAsset(args.asset_path)
 
     if args.add_object:
-        d = deserialize(args.add_object)
-        addObject(asset, d['Data'], d['Metadata'])
+        for item in args.add_object:
+            d = deserialize(item)
+            addObject(asset, d['Data'], d['Metadata'])
 
     if args.json_out:
         findData(asset, args.json_out)
