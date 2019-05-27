@@ -199,6 +199,7 @@ def readAsset(fs):
             dat = audioClip.readAudioClip(fs)
             print("Interpretting data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip")
         dat['Offset'] = obj['Offset']
+        dat['PathID'] = obj['PathID']
         dat['ClassID'] = obj['ClassID']
         dat['ByteSize'] = obj['ByteSize']
         o['Objects'].append(dat)
@@ -222,8 +223,10 @@ def writeAsset(fs, fr, o):
             print("Writing skip data: " + str(o['Header']['DataOffset']) + " with length: " + str(obj['Offset']))
             writeMiddleData(fs, fr, o['Header']['DataOffset'], obj['Offset'])
         else:
-            print("Writing skip data: " + str(objects[i-1]['Offset'] + objects[i-1]['ByteSize']) + " with length: " + str(obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize']))
-            writeMiddleData(fs, fr, objects[i-1]['Offset'] + objects[i-1]['ByteSize'], obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize'])
+            if objects[i]['Offset'] < objects[i-1]['Offset'] + objects[i-1]['ByteSize']:
+                print(str(objects[i-1]))
+            print("Writing skip data: " + str(o['Header']['DataOffset'] + objects[i-1]['Offset'] + objects[i-1]['ByteSize']) + " with length: " + str(obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize']))
+            writeMiddleData(fs, fr, o['Header']['DataOffset'] + objects[i-1]['Offset'] + objects[i-1]['ByteSize'], obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize'])
 
         if obj['ClassID'] == 114:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as MonoBehaviour with size: " + str(obj['ByteSize']))
