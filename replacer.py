@@ -104,15 +104,9 @@ def overwriteAllSongsFromDirectory(assetJson, directory):
                 assetJson['Objects'] = overwriteJson(getOffsetIncreasingObjectsList(assetJson), assetJson['Metadata'], assetJson['Header'], i, deserialize(os.path.join(directory, obj['Name']) + ".json"))
                 print("Deserialized JSON read from: " + os.path.join(directory, obj['Name']))
 
-asset_path = "../UABE Dumps/sharedassets17.assets"
-json_path = "../UABE Dumps/sharedassets17.assets.json"
-d = "RetrievedSongLevels/"
-out2 = "../UABE Dumps/sharedassets17-modified.assets.json"
-out = "../UABE Dumps/sharedassets17-modified.assets.split"
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The main file for making changes to .assets. Allows for differing length read/writes.")
-    parser.add_argument("asset_path", type=str, help="The path to the .assets or .split file. This also accepts .json files, but will not save .assets or .splits.")
+    parser.add_argument("asset_path", type=str, help="The path to the .assets file or append .split to read from splits. This also accepts .json files, but will not save as .assets or as .splits if chosen.")
     parser.add_argument("--level-out", type=str, help="The directory for the .json files of all the level data.")
     parser.add_argument("--level-in", type=str, help="The directory to load the .json files of all the level data to overwrite.")
     parser.add_argument("--output", type=str, help="The .json or .assets or .split file to output the modified .assets data. If .split is chosen, will first convert to .assets and then split.")
