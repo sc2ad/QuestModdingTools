@@ -33,14 +33,17 @@ It is important to **NOT** delete or rename these directories, as it looks for _
 6. A Custom Object must have two JSON keys:
 - `Metadata`
 - `Data`
+
 `Metadata` must be a dictionary with at least two items:
 - `ByteSize`: The size of the file in bytes. This is tricky to calculate (this step will be automated in the future)
 - `TypeID`: The type ID of the object. The type ID of a level is `15`.
+
 `Data` must be a dictionary containing a raw .json from `LegibleData`. It must contain at least the following 4 values:
 - `GameObject`: A dict that represents an object pointer. Must contain at least two keys: `FileID` and `PathID`
 - `Enabled`: A uint32 that represents the enabled state of the object.
 - `MonoScript`: A dict that represents an object pointer. Must contain at least two keys: `FileID` and `PathID`
 - `Name`: An aligned_string that represents the name of the object.
+
 If you copied over an existing level to make your own, rejoice! You won't have to find all of those annoying parameters...
 
 Otherwise, get searching for `MonoScript.PathID` (which represents the script in charge of this object)
