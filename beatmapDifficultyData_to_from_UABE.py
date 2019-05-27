@@ -20,7 +20,7 @@ def writeMonoBehaviour(fs, o):
 	writePtr(fs, o['GameObject'])
 	writeUInt8(fs, o['Enabled'])
 	writeAlign(fs, fs.tell())
-	writePtr(fs, o['Script'])
+	writePtr(fs, o['MonoScript'])
 	writeAlignedString(fs, o['Name'])
 	writeAlignedString(fs, o['_jsonData'])
 	writeVector(fs, o['_signatureBytes'])

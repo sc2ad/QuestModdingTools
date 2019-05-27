@@ -58,6 +58,10 @@ def readTypes(fs, count):
         o[i] = readType(fs)
     return o
 
+def writeTypes(fs, o):
+    for item in o.keys():
+        writeType(fs, o[item])
+
 def readObjects(fs, count, types):
     a = []
     for _ in range(count):
@@ -71,6 +75,14 @@ def readObjects(fs, count, types):
         a.append(o)
     return a
 
+def writeObjects(fs, a):
+    for o in a:
+        writeAlign(fs, fs.tell())
+        writeUInt64(fs, o['PathID'])
+        writeUInt32(fs, o['Offset'])
+        writeUInt32(fs, o['ByteSize'])
+        writeUInt32(fs, o['TypeID'])
+
 def readScripts(fs, count):
     a = []
     for _ in range(count):
@@ -81,16 +93,30 @@ def readScripts(fs, count):
         a.append(o)
     return a
 
+def writeScripts(fs, a):
+    for o in a:
+        writeUInt32(fs, o['FileIndex'])
+        writeAlign(fs, fs.tell())
+        writeUInt64(fs, o['LocalID'])
+
 def readExternals(fs, count):
     a = []
     for _ in range(count):
         o = {}
-        o['Temp'] = readCString(fs)
-        o['GUID'] = hex(readUInt32(fs))
+        o['Temp'] = readCString(fs, False)
+        o['GUID'] = readHex16(fs)
         o['Type'] = readUInt32(fs)
-        o['PathName'] = readCString(fs)
+        o['PathName'] = readCString(fs, False)
+        read(fs, 1)
         a.append(o)
     return a
+
+def writeExternals(fs, a):
+    for o in a:
+        writeCString(fs, o['Temp'], False)
+        writeHex16(fs, o['GUID'])
+        writeUInt32(fs, o['Type'])
+        writeCString(fs, o['PathName'], False)
 
 def readMetadata(fs):
     o = {}
@@ -107,6 +133,19 @@ def readMetadata(fs):
     o['ExternalsCount'] = readUInt32(fs)
     o['Externals'] = readExternals(fs, o['ExternalsCount'])
     return o
+
+def writeMetadata(fs, o):
+    writeCString(fs, o['UnityVersion'])
+    writeUInt32(fs, o['TargetPlatform'])
+    writeUInt8(fs, o['EnableTypeTree'])
+    writeUInt32(fs, o['TypeCount'])
+    writeTypes(fs, o['Types'])
+    writeUInt32(fs, o['ObjectCount'])
+    writeObjects(fs, o['Objects'])
+    writeUInt32(fs, o['ScriptCount'])
+    writeScripts(fs, o['Scripts'])
+    writeUInt32(fs, o['ExternalsCount'])
+    writeExternals(fs, o['Externals'])
 
 def readBehaviour(fs):
     o = {}
@@ -125,6 +164,22 @@ def readBehaviour(fs):
         o = difficultyData.readMonoBehaviour(fs, o)
     return o
 
+def writeBehaviour(fs, o):
+    if o['MonoScript']['PathID'] == 644:
+        print("Attempting to write beatmap level...")
+        levelData.writeBeatmapLevel(fs, o)
+        return True
+    elif o['MonoScript']['PathID'] == 1552:
+        print("Attempting to write Beatmap Data...")
+        difficultyData.writeMonoBehaviour(fs, o)
+        return True
+    else:
+        # writePtr(fs, o['GameObject'])
+        # writeUInt32(fs, o['Enabled'])
+        # writePtr(fs, o['MonoScript'])
+        # writeAlignedString(fs, o['Name'])
+        return False
+
 def readAsset(fs):
     o = {}
     o['Header'] = readHeader(fs)
@@ -134,25 +189,57 @@ def readAsset(fs):
     o['Objects'] = []
     for obj in o['Metadata']['Objects']:
         fs.seek(o['Header']['DataOffset'] + obj['Offset'])
+        dat = {}
         if obj['ClassID'] == 114:
-            o['Objects'].append(readBehaviour(fs))
+            dat = readBehaviour(fs)
             print("Interpretting data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as MonoBehaviour")
         elif obj['ClassID'] == 83:
-            o['Objects'].append(audioClip.readAudioClip(fs))
+            dat = audioClip.readAudioClip(fs)
             print("Interpretting data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip")
-    
+        dat['Offset'] = obj['Offset']
+        dat['ClassID'] = obj['ClassID']
+        dat['ByteSize'] = obj['ByteSize']
+        o['Objects'].append(dat)
     return o
 
-def writeAsset(fs, o):
-    writeHeader(o['Header'])
-    writeMetadata(o['Metadata'])
-    write0(fs, o['Header']['DataOffset'] - fs.tell())
+def writeMiddleData(fs, fr, offset, length):
+    fr.seek(offset)
+    fs.write(fr.read(length))
+
+def writeAsset(fs, fr, o):
+    writeHeader(fs, o['Header'])
+    writeMetadata(fs, o['Metadata'])
+    # write0(fs, o['Header']['DataOffset'] - fs.tell())
+    writeMiddleData(fs, fr, fs.tell(), o['Header']['DataOffset'] - fs.tell())
+    objects = sorted(o['Objects'], key=lambda ob: ob['Offset'])
+    for i in range(len(objects)):
+        obj = objects[i]
+        # Need to somehow do proper seeking (write the other info too) but don't just fill it with 0s
+        # We want to write the old data in order of increasing offset (hopefully this works?)
+        if i == 0:
+            print("Writing skip data: " + str(o['Header']['DataOffset']) + " with length: " + str(obj['Offset']))
+            writeMiddleData(fs, fr, o['Header']['DataOffset'], obj['Offset'])
+        else:
+            print("Writing skip data: " + str(objects[i-1]['Offset'] + objects[i-1]['ByteSize']) + " with length: " + str(obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize']))
+            writeMiddleData(fs, fr, objects[i-1]['Offset'] + objects[i-1]['ByteSize'], obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize'])
+
+        if obj['ClassID'] == 114:
+            print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as MonoBehaviour with size: " + str(obj['ByteSize']))
+            if not writeBehaviour(fs, obj):
+                print(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'])
+                writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'] - fs.tell())
+        elif obj['ClassID'] == 83:
+            print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip with size: " + str(obj['ByteSize']))
+            audioClip.writeAudioClip(fs, obj)
+        else:
+            print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as unknown raw copy with size: " + str(obj['ByteSize']))
+            writeMiddleData(fs, fr, obj['Offset'] + o['Header']['DataOffset'], obj['ByteSize'])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A script for loading and writing .assets files into legible json.")
     parser.add_argument("path", type=str, help="The path to a packaged (full) .assets file.")
     parser.add_argument("output", type=str, help="The path to the resulting .json file")
-    parser.add_argument("--load", help="Load the .json and overwrite the .assets at path. Default=false")
+    parser.add_argument("--load", help="Load the .json and overwrite the .assets at this path.")
 
     args = parser.parse_args()
 
@@ -160,10 +247,13 @@ if __name__ == "__main__":
         o = deserialize(args.output)
         print("Deserialized!")
         print("Writing...")
-        writeAsset(fs, o)
-        print("Wrote asset to: " + args.path)
+        with open(args.load, 'wb') as fs:
+            with open(args.path, 'rb') as fr:
+                writeAsset(fs, fr, o)
+                print("Wrote asset to: " + args.load)
     else:
         with open(args.path, 'rb') as fs:
+            print("Reading...")
             o = readAsset(fs)
             serialize(o, args.output)
             print("Serialized to: " + args.output)

@@ -43,18 +43,29 @@ def writeAlign(fs, offset, alignment=4):
     if i < offset:
         write0(fs, i)
 
-def readCString(fs):
+def readCString(fs, align=True):
     s = ""
+    start = fs.tell()
     while bytes([fs.peek()[0]]) != b'\x00':
         s += read(fs, 1).decode()
-    readAlign(fs, fs.tell())
+    if start == fs.tell():
+        # Need to read one slot and realign
+        # readAlign(fs, fs.tell())
+        read(fs, 1)
+        return s
+    if align:
+        readAlign(fs, fs.tell())
     return s
 
-def writeCString(fs, s):
+def writeCString(fs, s, align=True):
+    start = fs.tell()
     for item in s:
-        write(fs, bytes([ord(item)]))
-    writeAlign(fs, fs.tell())
+        write(fs, item.encode())
     write0(fs, 1)
+    if fs.tell() - start == 1:
+        return
+    if align:
+        writeAlign(fs, fs.tell())
 
 def readHex16(fs):
     orig = [hex(item) for item in read(fs, 16)]
@@ -66,8 +77,9 @@ def readHex16(fs):
     return ''.join(orig)
 
 def writeHex16(fs, item):
-    for i in range(item, step=2):
-        write(fs, int(item[i] + item[i + 1]))
+    for i in range(0, len(item), 2):
+        b = bytes([int(item[i] + item[i + 1], 16)])
+        write(fs, b)
 
 def readBool(fs):
     return struct.unpack("?", read(fs, 1))[0]
