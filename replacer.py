@@ -107,6 +107,7 @@ def addObject(assetJson, data, metadata):
     data['Offset'] = metadata['Offset']
     data['ByteSize'] = metadata['ByteSize']
     data['ClassID'] = 114 # Script class
+    data['Fresh'] = True
 
     # metadata['ByteSize'] #TODO
 
@@ -114,6 +115,14 @@ def addObject(assetJson, data, metadata):
 
     assetJson['Metadata']['ObjectCount'] += 1
     assetJson['Metadata']['Objects'].append(metadata)
+
+    for item in assetJson['Objects']:
+        if 'Fresh' in item.keys():
+            continue
+        if not 'ReadOffset' in item.keys():
+            item['ReadOffset'] = 0
+        item['ReadOffset'] += metadataObjectSize
+
     assetJson['Objects'].append(data)
 
 
