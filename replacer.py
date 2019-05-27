@@ -69,7 +69,7 @@ def getAsset(path):
     elif ".split" in path:
         f = path.split(".split")[0]
         combine(f)
-        with open(path, 'rb') as fs:
+        with open(f, 'rb') as fs:
             return readAsset(fs)
 
 def saveAsset(asset, path, asset_path):
@@ -112,15 +112,24 @@ out = "../UABE Dumps/sharedassets17-modified.assets.split"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The main file for making changes to .assets. Allows for differing length read/writes.")
-    # parser.add_argument("asset_path", type=str, help="The path to the .assets file.")
+    parser.add_argument("asset_path", type=str, help="The path to the .assets or .split file. This also accepts .json files, but will not save .assets or .splits.")
     parser.add_argument("--level-out", type=str, help="The directory for the .json files of all the level data.")
     parser.add_argument("--level-in", type=str, help="The directory to load the .json files of all the level data to overwrite.")
     parser.add_argument("--output", type=str, help="The .json or .assets or .split file to output the modified .assets data. If .split is chosen, will first convert to .assets and then split.")
     
     args = parser.parse_args()
 
-    asset = getAsset(json_path)
-    # findSongLevels(asset, d)
-    overwriteAllSongsFromDirectory(asset, d)
-    saveAsset(asset, out, asset_path)
-    saveAsset(asset, out2, asset_path)
+    asset = getAsset(args.asset_path)
+    if args.level_out:
+        findSongLevels(asset, args.level_out)
+    elif args.level_in:
+        overwriteAllSongsFromDirectory(asset, args.level_in)
+    
+    if args.output:
+        if not args.output.endswith('.json') and args.asset_path.endswith('.json'):
+            print("Must provide .assets or .split file as 'asset_path' in order to save without serialization!")
+        else:
+            if '.split' in args.asset_path:
+                args.asset_path = args.asset_path.split('.split')[0]
+                assert args.asset_path.endswith('.assets'), ".split file must have .assets immediately before .split!"
+            saveAsset(asset, args.output, args.asset_path)
