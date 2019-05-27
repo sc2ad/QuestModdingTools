@@ -205,9 +205,15 @@ def readAsset(fs):
         o['Objects'].append(dat)
     return o
 
-def writeMiddleData(fs, fr, offset, length):
-    fr.seek(offset)
+def writeMiddleData(fs, fr, offset, length, readOffset=0):
+    fr.seek(offset - readOffset)
     fs.write(fr.read(length))
+
+def copyData(fs, fr, offset, length, obj):
+    if 'ReadOffset' in obj.keys():
+        writeMiddleData(fs, fr, offset, length, obj['ReadOffset'])
+    else:
+        writeMiddleData(fs, fr, offset, length)
 
 def writeAsset(fs, fr, o):
     writeHeader(fs, o['Header'])
@@ -221,30 +227,30 @@ def writeAsset(fs, fr, o):
         # We want to write the old data in order of increasing offset (hopefully this works?)
         if i == 0:
             print("Writing skip data: " + str(o['Header']['DataOffset']) + " with length: " + str(obj['Offset']))
-            writeMiddleData(fs, fr, o['Header']['DataOffset'], obj['Offset'])
+            copyData(fs, fr, o['Header']['DataOffset'], obj['Offset'], obj)
         else:
             if objects[i]['Offset'] < objects[i-1]['Offset'] + objects[i-1]['ByteSize']:
                 print(str(objects[i-1]))
             print("Writing skip data: " + str(o['Header']['DataOffset'] + objects[i-1]['Offset'] + objects[i-1]['ByteSize']) + " with length: " + str(obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize']))
-            writeMiddleData(fs, fr, o['Header']['DataOffset'] + objects[i-1]['Offset'] + objects[i-1]['ByteSize'], obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize'])
+            copyData(fs, fr, o['Header']['DataOffset'] + objects[i-1]['Offset'] + objects[i-1]['ByteSize'], obj['Offset'] - objects[i-1]['Offset'] - objects[i-1]['ByteSize'], obj)
 
         if obj['ClassID'] == 114:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as MonoBehaviour with size: " + str(obj['ByteSize']))
             if not writeBehaviour(fs, obj):
                 print("Writing data at: " + str(obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']) + " as unknown MonoBehaviour with size: " + str(obj['ByteSize']))
-                writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'])
+                copyData(fs, fr, fs.tell(), obj['ByteSize'], obj)
             else:
                 end = obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']
                 # print("Expected end: " + str(end) + " actual end: " + str(fs.tell()))
                 if end - fs.tell() > 4:
                     print("Delta expected detected! delta: " + str(end - fs.tell()) + " obj info: " + str(obj))
-                writeMiddleData(fs, fr, fs.tell(), obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'] - fs.tell())
+                copyData(fs, fr, fs.tell(), obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'] - fs.tell(), obj)
         elif obj['ClassID'] == 83:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip with size: " + str(obj['ByteSize']))
             audioClip.writeAudioClip(fs, obj)
         else:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as unknown raw copy with size: " + str(obj['ByteSize']))
-            writeMiddleData(fs, fr, obj['Offset'] + o['Header']['DataOffset'], obj['ByteSize'])
+            copyData(fs, fr, obj['Offset'] + o['Header']['DataOffset'], obj['ByteSize'], obj)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="A script for loading and writing .assets files into legible json.")

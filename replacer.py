@@ -51,6 +51,9 @@ def overwriteJson(objects, metadata, header, index, data={}):
             # Not as simple as simple addition, need to align after every add
             print("Updating: " + objects[i]['Name'] + " Offset from: " + str(objects[i]['Offset']) + " to: " + str(objects[i]['Offset'] + delta))
             objects[i]['Offset'] += delta
+            if not 'ReadOffset' in objects[i].keys():
+                objects[i]['ReadOffset'] = 0
+            objects[i]['ReadOffset'] += delta
             for item in metadata['Objects']:
                 if item['PathID'] == objects[i]['PathID']:
                     # Matching item, increase offset
