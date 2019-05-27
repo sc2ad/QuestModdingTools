@@ -25,8 +25,10 @@ def readAlignedString(fs):
     readAlign(fs, i)
     return s
 
-def readAlign(fs, offset):
-    read(fs, (4 - offset) % 4)
+def readAlign(fs, offset, alignment=4):
+    i = (alignment - offset) % alignment
+    if i < offset:
+        read(fs, i)
 
 def writeAlignedString(fs, st):
     writeUInt32(fs, len(st))
@@ -36,19 +38,36 @@ def writeAlignedString(fs, st):
         write(fs, bytes([ord(st[i])]))
     writeAlign(fs, i + 1)
 
-def writeAlign(fs, offset):
-    write0(fs, (4 - offset % 4))
+def writeAlign(fs, offset, alignment=4):
+    i = (alignment - offset) % alignment
+    if i < offset:
+        write0(fs, i)
 
 def readCString(fs):
     s = ""
     while bytes([fs.peek()[0]]) != b'\x00':
         s += read(fs, 1).decode()
+    readAlign(fs, fs.tell())
     return s
 
 def writeCString(fs, s):
     for item in s:
         write(fs, bytes([ord(item)]))
+    writeAlign(fs, fs.tell())
     write0(fs, 1)
+
+def readHex16(fs):
+    orig = [hex(item) for item in read(fs, 16)]
+    for i in range(len(orig)):
+        if len(orig[i]) == 3:
+            orig[i] = "0" + orig[i][2:]
+        else:
+            orig[i] = orig[i][2:]
+    return ''.join(orig)
+
+def writeHex16(fs, item):
+    for i in range(item, step=2):
+        write(fs, int(item[i] + item[i + 1]))
 
 def readBool(fs):
     return struct.unpack("?", read(fs, 1))[0]

@@ -26,8 +26,8 @@ def readAudioClip(fs):
 	o['BitsPerSample'] = readInt32(fs)
 	o['Length'] = readFloat(fs)
 	# Throwaway
-	fs.read(2)
 	o['IsTrackerFormat'] = readBool(fs)
+	readAlign(fs, fs.tell())
 	o['Ambisonic'] = readBool(fs)
 	o['SubsoundIndex'] = readInt32(fs)
 	o['PreloadAudioData'] = readBool(fs)
@@ -45,6 +45,7 @@ def writeAudioClip(fs, o):
 	writeInt32(fs, o['BitsPerSample'])
 	writeFloat(fs, o['Length'])
 	writeBool(fs, o['IsTrackerFormat'])
+	writeAlign(fs, fs.tell())
 	writeBool(fs, o['Ambisonic'])
 	writeInt32(fs, o['SubsoundIndex'])
 	writeBool(fs, o['PreloadAudioData'])

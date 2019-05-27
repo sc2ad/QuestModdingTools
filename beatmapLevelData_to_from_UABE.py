@@ -43,12 +43,12 @@ def writeDifficulties(fs, o):
         writeInt32(fs, item['_noteJumpStartBeatOffset'])
         writePtr(fs, item['_beatmapData'])
 
-def readBeatmapLevel(fs):
+def readBeatmapLevel(f, o={}):
     obj = {}
-    obj["GameObject"] = readPtr(f)
-    obj["Enabled"] = readUInt32(f)
-    obj["MonoScript"] = readPtr(f)
-    obj["Name"] = readAlignedString(f)
+    obj["GameObject"] = o["GameObject"] if "GameObject" in o.keys() else readPtr(f)
+    obj["Enabled"] = o["Enabled"] if "Enabled" in o.keys() else readUInt32(f)
+    obj["MonoScript"] = o["MonoScript"] if "MonoScript" in o.keys() else readPtr(f)
+    obj["Name"] = o["Name"] if "Name" in o.keys() else readAlignedString(f)
     obj["_levelID"] = readAlignedString(f)
     obj["_songName"] = readAlignedString(f)
     obj["_songSubName"] = readAlignedString(f)
@@ -66,7 +66,7 @@ def readBeatmapLevel(fs):
     obj["_difficultyBeatmapSets"] = readBeatmaps(f)
     return obj
 
-def writeBeatmapLevel(fs, obj):
+def writeBeatmapLevel(f, obj):
     writePtr(f, obj["GameObject"])
     writeUInt32(f, obj["Enabled"])
     writePtr(f, obj["MonoScript"])

@@ -6,13 +6,12 @@ from helper import *
 
 ### This file was auto-generated using uabe_autoparser.py
 ### Author: Sc2ad
-def readMonoBehaviour(fs):
+def readMonoBehaviour(fs, obj={}):
 	o = {}
-	o['GameObject'] = readPtr(fs)
-	o['Enabled'] = readUInt8(fs)
-	readAlign(fs, fs.tell())
-	o['Script'] = readPtr(fs)
-	o['Name'] = readAlignedString(fs)
+	o['GameObject'] = obj["GameObject"] if "GameObject" in obj.keys() else readPtr(f)
+	o['Enabled'] = obj["Enabled"] if "Enabled" in obj.keys() else readUInt32(f)
+	o['MonoScript'] = obj["MonoScript"] if "MonoScript" in obj.keys() else readPtr(f)
+	o['Name'] = obj["Name"] if "Name" in obj.keys() else readAlignedString(f)
 	o['_jsonData'] = readAlignedString(fs)
 	o['_signatureBytes'] = readVector(fs)
 	o['_projectedData'] = readVector(fs)
