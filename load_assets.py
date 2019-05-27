@@ -8,6 +8,8 @@ from helper import *
 import beatmapDifficultyData_to_from_UABE as difficultyData
 import beatmapLevelData_to_from_UABE as levelData
 import audioClip_to_from_UABE as audioClip
+import levelCollection_to_from_UABE as levelCollection
+import levelPack_to_from_UABE as levelPack
 
 # This audio clip has fileID = 0, pathID = 28
 memOffsetForAudioClip = 0x00684a38
@@ -162,6 +164,12 @@ def readBehaviour(fs):
     elif o['MonoScript']['PathID'] == 1552:
         print("Attempting to read Beatmap Data...")
         o = difficultyData.readMonoBehaviour(fs, o)
+    elif o['MonoScript']['PathID'] == 762:
+        print("Attempting to read BeatmapLevel Collection...")
+        o = levelCollection.readMonoBehaviour(fs, o)
+    elif o['MonoScript']['PathID'] == 1480:
+        print("Attempting to read levelPack...")
+        o = levelPack.readMonoBehaviour(fs, o)
     return o
 
 def writeBehaviour(fs, o):
@@ -172,6 +180,14 @@ def writeBehaviour(fs, o):
     elif o['MonoScript']['PathID'] == 1552:
         print("Attempting to write Beatmap Data...")
         difficultyData.writeMonoBehaviour(fs, o)
+        return True
+    elif o['MonoScript']['PathID'] == 762:
+        print("Attempting to write BeatmapLevel Collection...")
+        levelCollection.writeMonoBehaviour(fs, o)
+        return True
+    elif o['MonoScript']['PathID'] == 1480:
+        print("Attempting to write levelPack...")
+        levelPack.writeMonoBehaviour(fs, o)
         return True
     else:
         # writePtr(fs, o['GameObject'])
