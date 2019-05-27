@@ -41,8 +41,8 @@ def readType(fs):
     o["IsStripped"] = readUInt8(fs)
     o["ScriptTypeIndex"] = readInt16(fs)
     if o['ClassID'] == 114:
-        o['ScriptID'] = readHex16(fs)
-    o['TypeHash'] = readHex16(fs)
+        o['ScriptID'] = readHex(fs)
+    o['TypeHash'] = readHex(fs)
     return o
 
 def writeType(fs, o):
@@ -50,8 +50,8 @@ def writeType(fs, o):
     writeUInt8(fs, o["IsStripped"])
     writeInt16(fs, o["ScriptTypeIndex"])
     if o['ClassID'] == 114:
-        writeHex16(fs, o['ScriptID'])
-    writeHex16(fs, o['TypeHash'])
+        writeHex(fs, o['ScriptID'])
+    writeHex(fs, o['TypeHash'])
 
 def readTypes(fs, count):
     o = {}
@@ -106,7 +106,7 @@ def readExternals(fs, count):
     for _ in range(count):
         o = {}
         o['Temp'] = readCString(fs, False)
-        o['GUID'] = readHex16(fs)
+        o['GUID'] = readHex(fs)
         o['Type'] = readUInt32(fs)
         o['PathName'] = readCString(fs, False)
         read(fs, 1)
@@ -116,7 +116,7 @@ def readExternals(fs, count):
 def writeExternals(fs, a):
     for o in a:
         writeCString(fs, o['Temp'], False)
-        writeHex16(fs, o['GUID'])
+        writeHex(fs, o['GUID'])
         writeUInt32(fs, o['Type'])
         writeCString(fs, o['PathName'], False)
 

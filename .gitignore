@@ -6,3 +6,5 @@
 __pycache__/
 
 RetrievedData\.zip
+
+\.vscode/\.ropeproject/

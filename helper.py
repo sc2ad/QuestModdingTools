@@ -67,8 +67,8 @@ def writeCString(fs, s, align=True):
     if align:
         writeAlign(fs, fs.tell())
 
-def readHex16(fs):
-    orig = [hex(item) for item in read(fs, 16)]
+def readHex(fs, l=16):
+    orig = [hex(item) for item in read(fs, l)]
     for i in range(len(orig)):
         if len(orig[i]) == 3:
             orig[i] = "0" + orig[i][2:]
@@ -76,7 +76,7 @@ def readHex16(fs):
             orig[i] = orig[i][2:]
     return ''.join(orig)
 
-def writeHex16(fs, item):
+def writeHex(fs, item):
     for i in range(0, len(item), 2):
         b = bytes([int(item[i] + item[i + 1], 16)])
         write(fs, b)

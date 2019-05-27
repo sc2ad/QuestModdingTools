@@ -9,6 +9,7 @@ songDir = "SongLevels"
 levelCollectionsDir = "LevelCollections"
 levelPacksDir = "LevelPacks"
 audioClipsD = "AudioClips"
+texture2dD = "Texture2Ds"
 
 def createD(directory):
     if not os.path.exists(directory):
@@ -19,11 +20,13 @@ def findData(assetJson, directory):
     levelCD = os.path.join(directory, levelCollectionsDir)
     levelPD = os.path.join(directory, levelPacksDir)
     audioD = os.path.join(directory, audioClipsD)
+    textD = os.path.join(directory, texture2dD)
     createD(directory)
     createD(songD)
     createD(levelCD)
     createD(levelPD)
     createD(audioD)
+    createD(textD)
     for i in range(len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]
         if obj['ClassID'] == 114:
