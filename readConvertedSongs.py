@@ -18,26 +18,25 @@ LATEST_PID = 261
 # diff = "../NUCLEAR-STAR/ExpertPlusBinary.dat" # Converted to binary version of ExpertPlus
 # level = '../NUCLEAR-STAR/info.dat' # The output from songe_converter.exe
 
-songDir = '../NUCLEAR-STAR/' # The directory for the song.
+# songDir = '../NUCLEAR-STAR/' # The directory for the song.
 
-path_to_songe = 'songe-converter.exe'
+# path_to_songe = 'songe-converter.exe'
 commands = ['-k']
+resourcesPath = "assets/bin/Data"
+sharedAssets = "sharedassets17.assets.split"
 
-path_to_beatmapCreator = 'BeatmapAssetMaker.exe'
+# path_to_beatmapCreator = 'BeatmapAssetMaker.exe'
 
-diffD = 'NuclearStarDifficulties'
+# diffD = 'NuclearStarDifficulties'
 
-asset_path = "../UABE Dumps/sharedassets17.assets.split"
-json_out_dir = "ParsedData"
-output = "../UABE Dumps/sharedassets17-nuclearStar.assets.split"
+# asset_path = "../UABE Dumps/sharedassets17.assets.split"
+# json_out_dir = "ParsedData"
+# output = "../UABE Dumps/sharedassets17-nuclearStar.assets.split"
 
-audioClipObjPath = 'NuclearStarAudioClip.json'
-o = 'NuclearStarExpertPlus.json'
-levelJson = 'NuclearStar.json'
-levelDat = 'NuclearStarLevelDat.dat'
-
-def alignSize(size):
-    return size + 4 - size % 4 if size % 4 != 0 else size
+# audioClipObjPath = 'NuclearStarAudioClip.json'
+# o = 'NuclearStarExpertPlus.json'
+# levelJson = 'NuclearStar.json'
+# levelDat = 'NuclearStarLevelDat.dat'
 
 def findDifficulties(songDir):
     fs = os.listdir(songDir)
@@ -82,33 +81,26 @@ def createBeatmapDataObject(json_out, js, size):
     }
     serialize(data, json_out)
 
-def makeSongDifficulty(song_dat, out_dir):
-    n = song_dat.replace("/", "-")[3:][:-4]
+def makeSongDifficulty(song_dat, out_dir, path_to_beatmapCreator):
+    # n = song_dat.replace("/", "-")[3:][:-4]
+    n = os.path.join(os.path.split(os.path.split(song_dat)[0])[1], os.path.split(song_dat)[1])[:-4]
+    print(n)
     outF = os.path.join(out_dir, n + ".dat")
+    if not os.path.exists(os.path.join(out_dir, os.path.split(n)[0])):
+        os.mkdir(os.path.join(out_dir, os.path.split(n)[0]))
 
     createBeatmapData(path_to_beatmapCreator, n, song_dat, outF)
-
-    # out = deserialize(song_dat)
-    with open(outF, 'rb') as fs:
-        out = fs.read()
-    # Calculates size:
-    size = len(out)
-    size = alignSize(size)
-    print(size)
 
     with open(outF, 'rb') as fs:
         js = difficulty.readMonoBehaviour(fs)
         js['Name'] = n
-        createBeatmapDataObject(os.path.join(out_dir, n + ".json"), js, size)
 
     with open(outF, 'wb') as fs:
-        difficulty.writeMonoBehaviour(fs, deserialize(os.path.join(out_dir, n + '.json'))['Data'])
+        difficulty.writeMonoBehaviour(fs, js)
 
     with open(outF, 'rb') as fs:
-        r = len(fs.read())
-        fs.seek(0)
-        ok = difficulty.readMonoBehaviour(fs)
-        assert r == size, "Redefine size to be: " + str(r)
+        size = len(fs.read())
+        createBeatmapDataObject(os.path.join(out_dir, n + ".json"), js, size)
     return os.path.join(out_dir, n + ".json")
 
 # Lengths should match.
@@ -120,7 +112,7 @@ def resetResource(res):
             print("Resetting res: " + res + " to: " + bkp)
             fs.write(f.read())
 
-def makeTexture2D(name, image_path):
+def makeTexture2D(name, image_path, json_path):
     OVERWRITE_BYTES = False
     meta = {
         "TypeID": 2,
@@ -165,25 +157,25 @@ def makeTexture2D(name, image_path):
     }
     if OVERWRITE_BYTES:
         imBytes = jpg.tobytes()
-        with open("temp.raw", 'wb') as fs:
+        with open(os.path.join("temp", "temp.raw"), 'wb') as fs:
             writeUInt32(fs, jpg.size[0] * jpg.size[1])
             fs.write(imBytes)
-        with open("temp.raw", 'rb') as fs:
+        with open(os.path.join("temp", "temp.raw"), 'rb') as fs:
             data['image'] = texture2d.readTypelessData(fs)
     else:
         # MUST MAKE SURE IMAGE IS IN THE APK RESOURCES FOLDER!
         data['StreamData']['Path'] = os.path.split(image_path)[1]
         with open(image_path, 'rb') as fs:
             data['StreamData']['Size'] = len(fs.read())
-    with open("temp.dat", 'wb') as fs:
+    with open(os.path.join("temp", "temp.dat"), 'wb') as fs:
         texture2d.writeTexture2D(fs, data)
-    with open("temp.dat", 'rb') as fs:
+    with open(os.path.join("temp", "temp.dat"), 'rb') as fs:
         meta['ByteSize'] = len(fs.read())
     
-    serialize({"Metadata": meta, "Data": data}, name + "Texture2D.json")
-    return name + "Texture2D.json"
+    serialize({"Metadata": meta, "Data": data}, os.path.join(json_path, name + "Texture2D.json"))
+    return os.path.join(json_path, name + "Texture2D.json")
 
-def makeAudioClip(name, oggF):
+def makeAudioClip(name, oggF, json_path):
     # Read OGG:
     with open(oggF, 'rb') as f:
         ogg = f.read()
@@ -228,14 +220,14 @@ def makeAudioClip(name, oggF):
         "CompressionFormat": 1
     }
 
-    with open(audioClipObjPath + ".dat", 'wb') as fs:
+    with open(os.path.join("temp", name + ".dat"), 'wb') as fs:
         audioClip.writeAudioClip(fs, d)
-    with open(audioClipObjPath + ".dat", 'rb') as fs:
+    with open(os.path.join("temp", name + ".dat"), 'rb') as fs:
         size = len(fs.read())
         meta['ByteSize'] = size
 
-    serialize({"Metadata": meta, "Data": d}, name + "AudioClip.json")
-    return name + "AudioClip.json"
+    serialize({"Metadata": meta, "Data": d}, os.path.join(json_path, name + "AudioClip.json"))
+    return os.path.join(json_path, name + "AudioClip.json")
 
 def convertDifficulty(difficulty):
     if difficulty == 'Easy':
@@ -261,8 +253,9 @@ def makeLevel(n, level_dat, levelJson, level_out_dat, objects):
                 "FileID": 0,
                 "PathID": objects['Difficulties'][i]['pid']
             },
-            "ByteSize": 36
-        } for i in range(len(out["_difficultyBeatmapSets"]))
+            "ByteSize": 28
+        # } for i in range(len(out["_difficultyBeatmapSets"]))
+        } for i in range(1) # Failsafe for offset bug due to extra creation of these difficulties. Just choose the first one for now.
     ]
 
     a = {
@@ -313,7 +306,7 @@ def makeLevel(n, level_dat, levelJson, level_out_dat, objects):
                             "size": len(arr),
                             "Array": arr
                         },
-                        "ByteSize": sum([item['ByteSize'] for item in arr])
+                        "ByteSize": sum([item['ByteSize'] for item in arr]) + 16
                     }
                 ]
             }
@@ -332,58 +325,62 @@ def makeLevel(n, level_dat, levelJson, level_out_dat, objects):
         fs.seek(0)
         serialize(levelData.readBeatmapLevel(fs), levelJson)
 
-    size = alignSize(size)
     print("Calculated ByteSize for Level: " + str(size))
     a['Metadata']['ByteSize'] = size
 
     serialize(a, levelJson)
 
-def createObjects(asset_path, data, json_out_dir, output):
-    print("Created Objects: " + str(data))
-    # print("With PIDs: " + str(pidAudioClip) + ", " + str(pidDifficultyObjects[0])+ ", " + str("?"))
-
+def createObjects(asset_path, allObjects, json_out_dir, output):
     asset = replacer.getAsset(asset_path)
+    for data in allObjects:
+        print("Created Objects: " + str(data))
+        # print("With PIDs: " + str(pidAudioClip) + ", " + str(pidDifficultyObjects[0])+ ", " + str("?"))
 
-    print(data['Objects'])
+        # print(data['Objects'])
 
-    for item in data['Objects'].keys():
-        if type(data['Objects'][item]) == list:
-            for v in data['Objects'][item]:
-                d = deserialize(v['path'])
+        ind = asset['Metadata']['ObjectCount']
+
+        for item in data['Objects'].keys():
+            if type(data['Objects'][item]) == list:
+                for v in data['Objects'][item]:
+                    d = deserialize(v['path'])
+                    replacer.addObject(asset, d['Data'], d['Metadata'])
+            else:
+                d = deserialize(data['Objects'][item]['path'])
                 replacer.addObject(asset, d['Data'], d['Metadata'])
-        else:
-            d = deserialize(data['Objects'][item]['path'])
-            replacer.addObject(asset, d['Data'], d['Metadata'])
 
-    replacer.findData(asset, json_out_dir)
+        replacer.findData(asset, json_out_dir)
+        # replacer.findData(asset, json_out_dir, 0)
 
-    # Edit ExtrasLevelCollection to add song
+        # Edit ExtrasLevelCollection to add song
+        j = deserialize(os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
+        lev = deserialize(os.path.join(json_out_dir, os.path.join("SongLevels", data['Name'] + ".json")))
 
-    j = deserialize(os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
-    lev = deserialize(os.path.join(json_out_dir, os.path.join("SongLevels", data['Name'] + ".json")))
+        j['_beatmapLevels']['size'] += 1
 
-    j['_beatmapLevels']['size'] += 1
+        levelPtr = {
+            "data": {
+                "FileID": 0,
+                "PathID": lev['PathID']
+            },
+            "ByteSize": 12
+        }
+        j['_beatmapLevels']['Array'].append(levelPtr)
+        j['ByteSize'] += levelPtr['ByteSize']
 
-    levelPtr = {
-        "data": {
-            "FileID": 0,
-            "PathID": lev['PathID']
-        },
-        "ByteSize": 12
-    }
+        serialize(j, os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
 
-    j['_beatmapLevels']['Array'].append(levelPtr)
+        replacer.overwriteAllSongsFromDirectory(asset, json_out_dir)
 
-    serialize(j, os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
-    # print("Serialized " + str(j) + " to: " + os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
+    # input("HOLD!")
 
     if '.split' in asset_path:
         asset_path = asset_path.split('.split')[0]
         assert asset_path.endswith('.assets'), ".split file must have .assets immediately before .split!"
-    replacer.overwriteAllSongsFromDirectory(asset, json_out_dir)
     replacer.saveAsset(asset, output, asset_path)
 
-    replacer.findData(replacer.getAsset(output), json_out_dir)
+    asset = replacer.getAsset(output)
+    replacer.findData(asset, json_out_dir)
 
 def addObj(name, data, path):
     global LATEST_PID
@@ -396,6 +393,38 @@ def addObj(name, data, path):
         return
     data['Objects'][name] = {'path': path, 'pid': LATEST_PID}
     LATEST_PID += 1
+    
+def createObjectsForSong(songDir, path_to_songe, path_to_beatmapCreator, json_path):
+    name = deserialize(os.path.join(songDir, "info.json"))['songName']
+    data = {"Name": name, "Objects" : {}}
+    convertSong(path_to_songe, songDir, commands)
+    diffs = findDifficulties(songDir)
+    level = findInfo(songDir)
+
+    addObj('Texture2D', data, makeTexture2D(name, findImage(songDir), json_path))
+    addObj('AudioClip', data, makeAudioClip(name, findOgg(songDir), json_path))
+    addObj('Difficulties', data, [])
+    if not os.path.exists(os.path.join("temp", "difficulties")):
+        os.mkdir(os.path.join("temp", "difficulties"))
+    for diff in diffs:
+        addObj('Difficulties', data, makeSongDifficulty(diff, os.path.join("temp", "difficulties"), path_to_beatmapCreator))
+    makeLevel(name, level, os.path.join(json_path, name + "Level.json"), os.path.join("temp", name + "Level.json"), data['Objects'])
+    addObj('Level', data, os.path.join(os.path.join(json_path, name + "Level.json")))
+    return data
+
+def createBackups(apkPath, backup):
+    if not '.split' in apkPath and not apkPath.endswith('.assets'):
+        dataDir = os.path.join(apkPath, resourcesPath)
+    else:
+        dataDir = os.path.split(apkPath)[0]
+    for f in os.listdir(dataDir):
+        if os.path.isdir(os.path.join(dataDir, f)):
+            continue
+        with open(os.path.join(dataDir, f), 'rb') as fs:
+            with open(os.path.join(backup, f), 'wb') as fw:
+                fw.write(fs.read())
+    
+
 
 if __name__ == "__main__":
     # GOAL: PROVIDE YOUR UNZIPPED APK AS A PATH, AND PROVIDE A LIST OF CUSTOM SONGS AND THIS WILL DO THE REST.
@@ -405,19 +434,67 @@ if __name__ == "__main__":
     # CREATES NEW DIRECTORIES FOR SONGS (WHICH CONTAIN THEIR .OGG AND .JPG FILES)
     # ADDS THESE SONGS TO THE EXTRA SONG PACK
     # WRITES USELESS FILES TO A TEMP DIRECTORY, WHICH IS THEN REMOVED.
-    pass
-data = {"Name": levelJson.split(".json")[0], "Objects" : {}}
+    parser = argparse.ArgumentParser(description="A python script that handles the installation of custom songs onto your device.")
+    parser.add_argument("path_to_apk", type=str, help="The path to your unzipped .apk root directory. Alternatively, you may provide a path to your .assets directly.")
+    parser.add_argument("path_to_songs", type=str, help="The path to your songs.")
+    parser.add_argument("path_to_songe_converter", type=str, help="The path to the songe-converter.exe.")
+    parser.add_argument("path_to_beatmapassetmaker", type=str, help="The path to the BeatmapAssetMaker.exe.")
+    parser.add_argument("--json-output", type=str, help="The path to save json output. Default = 'JsonOutput/'")
+    parser.add_argument("--backup", type=str, help="The path to save your backups. Default: 'bkps/'")
 
-convertSong(path_to_songe, songDir, commands)
-diffs = findDifficulties(songDir)
-level = findInfo(songDir)
+    args = parser.parse_args()
+    if not args.json_output:
+        args.json_output = "JsonOutput"
+    if not args.backup:
+        args.backup = "bkps"
 
-addObj('Texture2D', data, makeTexture2D(data['Name'], findImage(songDir)))
-addObj('AudioClip', data, makeAudioClip(data['Name'], findOgg(songDir)))
-# addObj('Texture', data, textureObjPath)
-addObj('Difficulties', data, [])
-for diff in diffs:
-    addObj('Difficulties', data, makeSongDifficulty(diff, diffD))
-makeLevel(data['Name'], level, levelJson, levelDat, data['Objects'])
-addObj('Level', data, levelJson)
-createObjects(asset_path, data, json_out_dir, output)
+    if not os.path.exists(args.backup):
+        os.mkdir(args.backup)
+    
+    createBackups(args.path_to_apk, args.backup)
+
+    if not os.path.exists('temp'):
+        os.mkdir('temp')
+
+    allObjects = []
+
+    dirpath = args.path_to_songs
+
+    for d in os.listdir(args.path_to_songs):
+        allObjects.append(createObjectsForSong(os.path.join(dirpath, d), args.path_to_songe_converter, args.path_to_beatmapassetmaker, args.json_output))
+
+    # NEED TO RESTRUCTURE!
+    if not os.path.exists(args.json_output):
+        os.mkdir(args.json_output)
+
+    tempAssets = os.path.join("temp", "Assets")
+    if not os.path.exists(tempAssets):
+        os.mkdir(tempAssets)
+    if not args.path_to_apk.endswith(".assets") and not '.split' in args.path_to_apk:
+        dataFolder = os.path.join(args.path_to_apk, resourcesPath)
+        assetSpot = sharedAssets
+    else:
+        dataFolder = os.path.split(args.path_to_apk)[0]
+        if '.split' in args.path_to_apk:
+            assetSpot = args.path_to_apk.split('.split')[0]
+        else:
+            assetSpot = args.path_to_apk
+    createObjects(os.path.join(dataFolder, assetSpot), allObjects, args.json_output, os.path.join(tempAssets, sharedAssets))
+    print("Copying Assets!")
+    for f in os.listdir(tempAssets):
+        if f.endswith(".assets"):
+            continue
+        with open(os.path.join(tempAssets, f), 'rb') as fs:
+            with open(os.path.join(dataFolder, f), 'wb') as fw:
+                fw.write(fs.read())
+    print("Copying songs/pictures!")
+    for d in os.listdir(args.path_to_songs):
+        image = findImage(os.path.join(args.path_to_songs, d))
+        ogg = findOgg(os.path.join(args.path_to_songs, d))
+        with open(image, 'rb') as fs:
+            with open(os.path.join(dataFolder, os.path.split(image)[1]), 'wb') as fw:
+                fw.write(fs.read())
+        with open(ogg, 'rb') as fs:
+            with open(os.path.join(dataFolder, os.path.split(ogg)[1]), 'wb') as fw:
+                fw.write(fs.read())
+    print("Complete!")

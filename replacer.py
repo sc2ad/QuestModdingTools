@@ -15,7 +15,7 @@ def createD(directory):
     if not os.path.exists(directory):
         os.makedirs(directory)
 
-def findData(assetJson, directory):
+def findData(assetJson, directory, ind=0):
     songD = os.path.join(directory, songDir)
     levelCD = os.path.join(directory, levelCollectionsDir)
     levelPD = os.path.join(directory, levelPacksDir)
@@ -27,7 +27,7 @@ def findData(assetJson, directory):
     createD(levelPD)
     createD(audioD)
     createD(textD)
-    for i in range(len(assetJson['Objects'])):
+    for i in range(ind, len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]
         if obj['ClassID'] == 114:
             if obj['MonoScript']['PathID'] == 644:
@@ -81,6 +81,7 @@ def overwriteJson(objects, metadata, header, index, data={}):
                     nLen += item['ByteSize']
                 if nLen != l:
                     print("Found delta with key: " + key + " in list with newLen: " + str(len(data[key]['Array'])) + " oldLen: " + str(len(objects[index][key]['Array'])))
+                # print("Found Array at: " + key + " with values: " + str(data[key]))
         objects[index][key] = data[key]
     if bytecheck and nLen != oldLen:
         objects[index]['ByteSize'] = nLen
@@ -103,7 +104,7 @@ def overwriteJson(objects, metadata, header, index, data={}):
             objects[i]['ReadOffset'] += delta
             for item in metadata['Objects']:
                 if item['PathID'] == objects[i]['PathID']:
-                    # Matching item, increase offset
+                    # Matching or later item, must increase offset.s
                     item['Offset'] += delta
     return objects
 
@@ -178,7 +179,7 @@ def getOffsetIncreasingObjectsList(assetJson):
     
 def setList(assetJson, i, obj, d, dire):
     print("Deserialized JSON read from: " + os.path.join(os.path.join(d, dire), obj['Name']))
-    return overwriteJson(getOffsetIncreasingObjectsList(assetJson), assetJson['Metadata'], assetJson['Header'], i, deserialize(os.path.join(os.path.join(d, dire), obj['Name']) + ".json"))
+    return overwriteJson(assetJson['Objects'], assetJson['Metadata'], assetJson['Header'], i, deserialize(os.path.join(os.path.join(d, dire), obj['Name']) + ".json"))
 def overwriteAllSongsFromDirectory(assetJson, directory):
     for i in range(len(assetJson['Objects'])):
         obj = assetJson['Objects'][i]

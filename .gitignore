@@ -12,3 +12,20 @@ RetrievedData\.zip
 temp/
 
 bkps/
+
+*.dll
+
+*.dat
+Assembly-CSharp\.pdb
+
+BeatmapAssetMaker\.pdb
+
+*.assets
+
+sharedassets17\.resource
+
+Newtonsoft\.Json\.xml
+
+BeatmapAssetMaker\.exe
+
+BeatmapAssetMaker\.exe\.config

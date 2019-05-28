@@ -122,7 +122,7 @@ if __name__ == '__main__':
 
 	if args.load:
 		dat = deserialize(args.load)
-		print("Deserialized: " + str(dat))
+		# print("Deserialized: " + str(dat))
 		# Write the changes to the file.
 		with open(args.file, "wb") as f:
 			writeTexture2D(f, dat)

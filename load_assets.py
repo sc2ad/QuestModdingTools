@@ -263,7 +263,7 @@ def writeAsset(fs, fr, o):
                 end = obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset']
                 # print("Expected end: " + str(end) + " actual end: " + str(fs.tell()))
                 if end - fs.tell() > 4:
-                    print("Delta expected detected! delta: " + str(end - fs.tell()) + " obj info: " + str(obj))
+                    print("Delta expected detected! delta: " + str(end - fs.tell()) + " obj ByteSize: " + str(obj['ByteSize']))
                 copyData(fs, fr, fs.tell(), obj['ByteSize'] + obj['Offset'] + o['Header']['DataOffset'] - fs.tell(), obj)
         elif obj['ClassID'] == 83:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip with size: " + str(obj['ByteSize']))
