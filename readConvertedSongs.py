@@ -397,6 +397,14 @@ def addObj(name, data, path):
     data['Objects'][name] = {'path': path, 'pid': LATEST_PID}
     LATEST_PID += 1
 
+if __name__ == "__main__":
+    # GOAL: PROVIDE YOUR UNZIPPED APK AS A PATH, AND PROVIDE A LIST OF CUSTOM SONGS AND THIS WILL DO THE REST.
+    # ABLE TO PARSE AND FIND ASSETS OF INTEREST
+    # CREATE FOLDERS IN THE APK DIRECTORY FOR INSERTING
+    # SPLITS AND UNSPLITS .ASSETS FILE (REMOVES UNSPLIT WHEN COMPLETE)
+    # CREATES NEW DIRECTORIES FOR SONGS (WHICH CONTAIN THEIR .OGG AND .JPG FILES)
+    # ADDS THESE SONGS TO THE EXTRA SONG PACK
+    pass
 data = {"Name": levelJson.split(".json")[0], "Objects" : {}}
 
 convertSong(path_to_songe, songDir, commands)
