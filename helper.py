@@ -77,6 +77,7 @@ def readHex(fs, l=16):
     return ''.join(orig)
 
 def writeHex(fs, item):
+    assert len(item) >= 2, "Item length was actually: " + str(len(item))
     for i in range(0, len(item), 2):
         b = bytes([int(item[i] + item[i + 1], 16)])
         write(fs, b)

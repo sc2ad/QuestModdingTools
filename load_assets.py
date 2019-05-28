@@ -10,6 +10,7 @@ import beatmapLevelData_to_from_UABE as levelData
 import audioClip_to_from_UABE as audioClip
 import levelCollection_to_from_UABE as levelCollection
 import levelPack_to_from_UABE as levelPack
+import texture2D_to_from_UABE as texture2d
 
 # This audio clip has fileID = 0, pathID = 28
 memOffsetForAudioClip = 0x00684a38
@@ -214,6 +215,9 @@ def readAsset(fs):
         elif obj['ClassID'] == 83:
             dat = audioClip.readAudioClip(fs)
             print("Interpretting data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip")
+        elif obj['ClassID'] == 28:
+            print("Interpretting data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as Texture2D")
+            dat = texture2d.readTexture2D(fs)
         dat['Offset'] = obj['Offset']
         dat['PathID'] = obj['PathID']
         dat['ClassID'] = obj['ClassID']
@@ -264,6 +268,9 @@ def writeAsset(fs, fr, o):
         elif obj['ClassID'] == 83:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as AudioClip with size: " + str(obj['ByteSize']))
             audioClip.writeAudioClip(fs, obj)
+        elif obj['ClassID'] == 28:
+            print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as Texture2D with size: " + str(obj['ByteSize']))
+            texture2d.writeTexture2D(fs, obj)
         else:
             print("Writing data at: " + str(o['Header']['DataOffset'] + obj['Offset']) + " as unknown raw copy with size: " + str(obj['ByteSize']))
             copyData(fs, fr, obj['Offset'] + o['Header']['DataOffset'], obj['ByteSize'], obj)

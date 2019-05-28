@@ -50,6 +50,11 @@ def findData(assetJson, directory):
             print("Found an audio clip with name: " + obj['Name'] + " at index: " + str(i))
             serialize(obj, os.path.join(audioD, obj['Name']) + ".json")
             print("Serialized JSON saved to: " + os.path.join(audioD, obj['Name']))
+        elif obj['ClassID'] == 28:
+            # This is a Texture2D!
+            print("Found a Texture2D with name: " + obj['Name'] + " at index: " + str(i))
+            serialize(obj, os.path.join(textD, obj['Name']) + ".json")
+            print("Serialized JSON saved to: " + os.path.join(textD, obj['Name']))
 
 def overwriteJson(objects, metadata, header, index, data={}):
     bytecheck = False
@@ -191,9 +196,13 @@ def overwriteAllSongsFromDirectory(assetJson, directory):
                 print("Found a beatmap level pack with name: " + obj['Name'] + " at index: " + str(i))
                 assetJson['Objects'] = setList(assetJson, i, obj, directory, levelPacksDir)
         elif obj['ClassID'] == 83:
-            # Then this is an AuioClip!
+            # Then this is an AudioClip!
             print("Found an AudioClip with name: " + obj['Name'] + " at index: " + str(i))
             assetJson['Objects'] = setList(assetJson, i, obj, directory, audioClipsD)
+        elif obj['ClassID'] == 28:
+            # This is a Texture2D!
+            print("Found a Texture2D with name: " + obj['Name'] + " at index: " + str(i))
+            assetJson['Objects'] = setList(assetJson, i, obj, dir, texture2dD)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The main file for making changes to .assets. Allows for differing length read/writes.")

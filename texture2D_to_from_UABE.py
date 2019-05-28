@@ -35,13 +35,36 @@ def writeStreamingInfo(fs, o):
 	writeAlignedString(fs, o['Path'])
 
 def readTypelessData(fs):
+	SIZE = 16
 	o = {}
 	o['size'] = readUInt32(fs)
-	o['Data'] = readHex(fs, o['size'])
+	o['Array'] = []
+	# Break this up into sizable chunks, but not too small/too big.
+	for i in range(0, o['size'], SIZE):
+		o['Array'].append({'data': readHex(fs, SIZE), 'ByteSize': SIZE})
+	# Because we could have read significantly too far, we need to make sure we account for this.
+	if o['size'] - i > 0:
+		# We read too few.
+		print("Size: " + str(o['size']) + " Current: " + str(i))
+		print("Offsetting by backreading: " + str(16 - (o['size'] - i)))
+		# o['Array'].append({'data': readHex(fs, o['size'] - i), 'ByteSize': o['size'] - i})
+		deletion = -16 + o['size'] - i
+		index = i // 16
+		o['Array'][index]['data'] = o['Array'][index]['data'][:len(o['Array'][index]['data']) + deletion * 2]
+		o['Array'][index]['ByteSize'] += deletion
+		fs.seek(deletion, 1)
+		# readAlign(fs, fs.tell())
+	s = 0
+	for item in o['Array']:
+		s += item['ByteSize']
+	assert s == o['size'], "Sizes don't match, expected: " + str(o['size']) + " but got: " + str(s)
+	readAlign(fs, fs.tell())
 	return o
 def writeTypelessData(fs, o):
 	writeUInt32(fs, o['size'])
-	writeHex(fs, o['Data'])
+	for item in o['Array']:
+		writeHex(fs, item['data'])
+	writeAlign(fs, fs.tell())
 
 def readTexture2D(fs):
 	o = {}

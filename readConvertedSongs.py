@@ -19,13 +19,11 @@ LATEST_PID = 261
 songDir = '../NUCLEAR-STAR/' # The directory for the song.
 
 path_to_songe = 'songe-converter.exe'
-commands = ['--k']
+commands = ['-k']
 
 path_to_beatmapCreator = 'BeatmapAssetMaker.exe'
 
 diffD = 'NuclearStarDifficulties'
-# oggF = '../NUCLEAR-STAR/NUCLEAR.ogg'
-res = 'sharedassets17.resource'
 
 asset_path = "../UABE Dumps/sharedassets17.assets.split"
 json_out_dir = "ParsedData"
@@ -60,7 +58,7 @@ def findOgg(songDir):
             return os.path.join(songDir, item)
 
 def convertSong(exePath, path, commands):
-    os.system(exePath + " " + path + " " + ' '.join(commands))
+    os.system(exePath + " " + ' '.join(commands) + " " + path)
 
 def createBeatmapData(exePath, name, input_dat, output_asset):
     os.system(exePath + " " + name + " " + input_dat + " " + output_asset)
@@ -114,7 +112,7 @@ def resetResource(res):
             print("Resetting res: " + res + " to: " + bkp)
             fs.write(f.read())
 
-def makeAudioClip(oggF, res):
+def makeAudioClip(oggF):
     # Read OGG:
     with open(oggF, 'rb') as f:
         ogg = f.read()
@@ -199,7 +197,7 @@ def makeLevel(level_dat, levelJson, level_out_dat, objects):
             "_noteJumpStartBeatOffset": out["_difficultyBeatmapSets"][i]['_difficultyBeatmaps'][0]['_noteJumpStartBeatOffset'],
             "_beatmapData": {
                 "FileID": 0,
-                "PathID": objects[i + 1]['pid']
+                "PathID": objects['Difficulties'][i]['pid']
             },
             "ByteSize": 36
         } for i in range(len(out["_difficultyBeatmapSets"]))
@@ -224,7 +222,7 @@ def makeLevel(level_dat, levelJson, level_out_dat, objects):
             "_levelAuthorName": out['_levelAuthorName'],
             "_audioClip": {
                 "FileID": 0,
-                "PathID": objects[0]['pid']
+                "PathID": objects['AudioClip']['pid']
             },
             "_beatsPerMinute": out['_beatsPerMinute'],
             "_songTimeOffset": out['_songTimeOffset'],
@@ -320,21 +318,27 @@ def createObjects(asset_path, data, json_out_dir, output):
 
     replacer.findData(replacer.getAsset(output), json_out_dir)
 
-def addObj(data, path):
+def addObj(name, data, path):
     global LATEST_PID
-    data['Objects'].append({'path': path, 'pid': LATEST_PID})
+    if name in data['Objects'].keys():
+        data['Objects'][name].append({'path': path, 'pid': LATEST_PID})
+        LATEST_PID += 1
+        return
+    data['Objects'][name] = {'path': path, 'pid': LATEST_PID}
     LATEST_PID += 1
 
-data = {"Name": levelJson.split(".json")[0], "Objects" : []}
+data = {"Name": levelJson.split(".json")[0], "Objects" : {}}
 
 convertSong(path_to_songe, songDir, commands)
 diffs = findDifficulties(songDir)
 level = findInfo(songDir)
 
-makeAudioClip(findOgg(songDir), res)
-addObj(data, audioClipObjPath)
+makeAudioClip(findOgg(songDir))
+addObj('AudioClip', data, audioClipObjPath)
+# addObj('Texture', data, textureObjPath)
+addObj('Difficulties', data, [])
 for diff in diffs:
-    addObj(data, makeSongDifficulty(diff, diffD))
+    addObj('Difficulties', data, makeSongDifficulty(diff, diffD))
 makeLevel(level, levelJson, levelDat, data['Objects'])
-addObj(data, levelJson)
+addObj('Level', data, levelJson)
 createObjects(asset_path, data, json_out_dir, output)
