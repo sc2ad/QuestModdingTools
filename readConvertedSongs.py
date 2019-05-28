@@ -1,24 +1,35 @@
 import beatmapDifficultyData_to_from_UABE as difficulty
 import beatmapLevelData_to_from_UABE as levelData
+import audioClip_to_from_UABE as audioClip
 import argparse
 from helper import *
 import resource_parser
 import replacer
 import os
 
-diff = '../NUCLEAR-STAR/ExpertPlus.dat' # The output from songe_converter.exe
+# pip install sounddevice
+import soundfile
+
+LATEST_PID = 261
+
+# diff = '../NUCLEAR-STAR/ExpertPlus.dat' # The output from songe_converter.exe
 # diff = "../NUCLEAR-STAR/ExpertPlusBinary.dat" # Converted to binary version of ExpertPlus
-level = '../NUCLEAR-STAR/info.dat' # The output from songe_converter.exe
-diffD = 'NuclearStarExpertPlus.dat'
-oggF = '../NUCLEAR-STAR/NUCLEAR.ogg'
+# level = '../NUCLEAR-STAR/info.dat' # The output from songe_converter.exe
+
+songDir = '../NUCLEAR-STAR/' # The directory for the song.
+
+path_to_songe = 'songe-converter.exe'
+commands = ['--k']
+
+path_to_beatmapCreator = 'BeatmapAssetMaker.exe'
+
+diffD = 'NuclearStarDifficulties'
+# oggF = '../NUCLEAR-STAR/NUCLEAR.ogg'
 res = 'sharedassets17.resource'
 
 asset_path = "../UABE Dumps/sharedassets17.assets.split"
 json_out_dir = "ParsedData"
 output = "../UABE Dumps/sharedassets17-nuclearStar.assets.split"
-
-pidDifficultyObjects = [262]
-pidAudioClip = 261
 
 audioClipObjPath = 'NuclearStarAudioClip.json'
 o = 'NuclearStarExpertPlus.json'
@@ -26,456 +37,73 @@ levelJson = 'NuclearStarLevel.json'
 levelDat = 'NuclearStarLevelDat.dat'
 
 def alignSize(size):
-    return size + (4 - size) % 4
+    return size + 4 - size % 4 if size % 4 != 0 else size
 
-def createSongDifficultyObject(name, binDat, bts, out):
-    proj = {}
-    with open(binDat, 'r') as fs:
-        proj["size"] = 0
-        proj["Array"] = []
-        j = fs.read()
-        j = "'".join(j.split('"'))
-        j = j[:-1]
+def findDifficulties(songDir):
+    fs = os.listdir(songDir)
+    a = []
+    for item in fs:
+        if item.endswith('.dat') and not 'info' in item and not 'lyrics' in item:
+            a.append(os.path.join(songDir, item))
+    return a
 
-    s = """{ "GameObject": {
-            "FileID": 0,
-            "PathID": 0
-        },
-        "Enabled": 1,
-        "MonoScript": {
-            "FileID": 1,
-            "PathID": 1552
-        },
-        "Name": \"""" + name + """\",
-        "_jsonData": \"""" + j + """\",
-        "_signatureBytes": {
-            "size": 128,
-            "Array": [
-                {
-                    "data": 8
-                },
-                {
-                    "data": 198
-                },
-                {
-                    "data": 115
-                },
-                {
-                    "data": 75
-                },
-                {
-                    "data": 215
-                },
-                {
-                    "data": 206
-                },
-                {
-                    "data": 89
-                },
-                {
-                    "data": 70
-                },
-                {
-                    "data": 233
-                },
-                {
-                    "data": 182
-                },
-                {
-                    "data": 197
-                },
-                {
-                    "data": 133
-                },
-                {
-                    "data": 142
-                },
-                {
-                    "data": 237
-                },
-                {
-                    "data": 112
-                },
-                {
-                    "data": 138
-                },
-                {
-                    "data": 132
-                },
-                {
-                    "data": 107
-                },
-                {
-                    "data": 199
-                },
-                {
-                    "data": 52
-                },
-                {
-                    "data": 164
-                },
-                {
-                    "data": 97
-                },
-                {
-                    "data": 185
-                },
-                {
-                    "data": 215
-                },
-                {
-                    "data": 145
-                },
-                {
-                    "data": 44
-                },
-                {
-                    "data": 217
-                },
-                {
-                    "data": 240
-                },
-                {
-                    "data": 64
-                },
-                {
-                    "data": 163
-                },
-                {
-                    "data": 250
-                },
-                {
-                    "data": 196
-                },
-                {
-                    "data": 172
-                },
-                {
-                    "data": 40
-                },
-                {
-                    "data": 79
-                },
-                {
-                    "data": 111
-                },
-                {
-                    "data": 236
-                },
-                {
-                    "data": 15
-                },
-                {
-                    "data": 17
-                },
-                {
-                    "data": 79
-                },
-                {
-                    "data": 27
-                },
-                {
-                    "data": 220
-                },
-                {
-                    "data": 165
-                },
-                {
-                    "data": 93
-                },
-                {
-                    "data": 241
-                },
-                {
-                    "data": 237
-                },
-                {
-                    "data": 236
-                },
-                {
-                    "data": 245
-                },
-                {
-                    "data": 56
-                },
-                {
-                    "data": 164
-                },
-                {
-                    "data": 206
-                },
-                {
-                    "data": 40
-                },
-                {
-                    "data": 89
-                },
-                {
-                    "data": 142
-                },
-                {
-                    "data": 191
-                },
-                {
-                    "data": 202
-                },
-                {
-                    "data": 49
-                },
-                {
-                    "data": 32
-                },
-                {
-                    "data": 214
-                },
-                {
-                    "data": 175
-                },
-                {
-                    "data": 43
-                },
-                {
-                    "data": 62
-                },
-                {
-                    "data": 103
-                },
-                {
-                    "data": 132
-                },
-                {
-                    "data": 139
-                },
-                {
-                    "data": 203
-                },
-                {
-                    "data": 105
-                },
-                {
-                    "data": 0
-                },
-                {
-                    "data": 84
-                },
-                {
-                    "data": 128
-                },
-                {
-                    "data": 20
-                },
-                {
-                    "data": 184
-                },
-                {
-                    "data": 59
-                },
-                {
-                    "data": 158
-                },
-                {
-                    "data": 146
-                },
-                {
-                    "data": 106
-                },
-                {
-                    "data": 159
-                },
-                {
-                    "data": 75
-                },
-                {
-                    "data": 56
-                },
-                {
-                    "data": 157
-                },
-                {
-                    "data": 207
-                },
-                {
-                    "data": 244
-                },
-                {
-                    "data": 188
-                },
-                {
-                    "data": 49
-                },
-                {
-                    "data": 156
-                },
-                {
-                    "data": 18
-                },
-                {
-                    "data": 190
-                },
-                {
-                    "data": 120
-                },
-                {
-                    "data": 208
-                },
-                {
-                    "data": 66
-                },
-                {
-                    "data": 244
-                },
-                {
-                    "data": 196
-                },
-                {
-                    "data": 3
-                },
-                {
-                    "data": 45
-                },
-                {
-                    "data": 95
-                },
-                {
-                    "data": 171
-                },
-                {
-                    "data": 14
-                },
-                {
-                    "data": 134
-                },
-                {
-                    "data": 243
-                },
-                {
-                    "data": 26
-                },
-                {
-                    "data": 54
-                },
-                {
-                    "data": 55
-                },
-                {
-                    "data": 25
-                },
-                {
-                    "data": 225
-                },
-                {
-                    "data": 130
-                },
-                {
-                    "data": 76
-                },
-                {
-                    "data": 45
-                },
-                {
-                    "data": 234
-                },
-                {
-                    "data": 20
-                },
-                {
-                    "data": 251
-                },
-                {
-                    "data": 255
-                },
-                {
-                    "data": 250
-                },
-                {
-                    "data": 210
-                },
-                {
-                    "data": 119
-                },
-                {
-                    "data": 227
-                },
-                {
-                    "data": 251
-                },
-                {
-                    "data": 107
-                },
-                {
-                    "data": 155
-                },
-                {
-                    "data": 36
-                },
-                {
-                    "data": 145
-                },
-                {
-                    "data": 121
-                },
-                {
-                    "data": 163
-                },
-                {
-                    "data": 28
-                },
-                {
-                    "data": 74
-                },
-                {
-                    "data": 39
-                },
-                {
-                    "data": 20
-                },
-                {
-                    "data": 253
-                },
-                {
-                    "data": 123
-                }
-            ]
-        },"""
-    # with open(binDat, 'rb') as fs:
-    #     proj['size'] = readUInt32(fs)
-    #     proj['Array'] = []
-    #     for _ in range(proj['size']):
-    #         proj['Array'].append({'data': readUInt8(fs), 'ByteSize': 1})
+def findInfo(songDir):
+    fs = os.listdir(songDir)
+    for item in fs:
+        if item.endswith('info.dat'):
+            return os.path.join(songDir, item)
 
-    with open(out, 'w') as f:
-        f.write("{\n")
-        f.write("\t\"Metadata\": {\n")
-        f.write("\t\t\"TypeID\": 14,\n")
-        f.write("\t\t\"ByteSize\": " + str(bts) + "\n")
-        f.write("\t},\n")
-        f.write("\t\"Data\": ")
-        f.write(s+"\n")
-        f.write("\t\t\"_projectedData\": " + '"'.join(str(proj).split("'")))
-        f.write("\n\t}\n}")
+def findOgg(songDir):
+    fs = os.listdir(songDir)
+    for item in fs:
+        if item.endswith('.ogg'):
+            return os.path.join(songDir, item)
 
-    # with open(out, 'r') as f:
-    #     print('\n'.join(f.readlines()))
+def convertSong(exePath, path, commands):
+    os.system(exePath + " " + path + " " + ' '.join(commands))
 
-def makeSongDifficulty(song_dat, dat_out_path):
-    n = song_dat.replace("/", "-")[3:]
+def createBeatmapData(exePath, name, input_dat, output_asset):
+    os.system(exePath + " " + name + " " + input_dat + " " + output_asset)
+
+def createBeatmapDataObject(json_out, js, size):
+    meta = {
+        "TypeID": 14,
+        "ByteSize": size
+    }
+    data = {
+        "Metadata": meta,
+        "Data": js
+    }
+    serialize(data, json_out)
+
+def makeSongDifficulty(song_dat, out_dir):
+    n = song_dat.replace("/", "-")[3:][:-4]
+    outF = os.path.join(out_dir, n + ".dat")
+
+    createBeatmapData(path_to_beatmapCreator, n, song_dat, outF)
+
     # out = deserialize(song_dat)
-    with open(song_dat, 'rb') as fs:
+    with open(outF, 'rb') as fs:
         out = fs.read()
     # Calculates size:
-    size = 28 + len(n) + 4 + len(str(out)) + 4 + 132
-    size += 4 - size % 4
+    size = len(out)
+    size = alignSize(size)
     print(size)
-    createSongDifficultyObject(n, song_dat, size, o)
 
-    with open(dat_out_path, 'wb') as fs:
-        difficulty.writeMonoBehaviour(fs, deserialize(o)['Data'])
+    with open(outF, 'rb') as fs:
+        js = difficulty.readMonoBehaviour(fs)
+        js['Name'] = n
+        createBeatmapDataObject(os.path.join(out_dir, n + ".json"), js, size)
 
-    with open(dat_out_path, 'rb') as fs:
+    with open(outF, 'wb') as fs:
+        difficulty.writeMonoBehaviour(fs, deserialize(os.path.join(out_dir, n + '.json'))['Data'])
+
+    with open(outF, 'rb') as fs:
         r = len(fs.read())
         fs.seek(0)
         ok = difficulty.readMonoBehaviour(fs)
         assert r == size, "Redefine size to be: " + str(r)
+    return os.path.join(out_dir, n + ".json")
 
 # Lengths should match.
 
@@ -493,13 +121,15 @@ def makeAudioClip(oggF, res):
 
     delta = len(ogg)
 
-    resetResource(res)
-    with open(res, 'rb') as fs:
-        fSize = len(fs.read())
-    with open(res, 'wb') as fs:
-        # The following line needs to ONLY run when the .resource file has not already had a song added to it.
-        fs.seek(fSize)
-        resource_parser.writeData(fs, ogg)
+    data, sampleRate = soundfile.read(oggF)
+
+    # resetResource(res)
+    # with open(res, 'rb') as fs:
+    #     fSize = len(fs.read())
+    # with open(res, 'wb') as fs:
+    #     # The following line needs to ONLY run when the .resource file has not already had a song added to it.
+    #     fs.seek(fSize)
+    #     resource_parser.writeData(fs, ogg)
 
     n = "NuclearStar"
     # Default resource + name to calculate new size from
@@ -508,9 +138,11 @@ def makeAudioClip(oggF, res):
     bSize = 96 + (len(n) - defaultN) + (len(res) - defaultRes)
     bSize = alignSize(bSize)
 
+    # COPY .OGG FILE TO APK RESOURCES FOLDER, IT WILL BE REFERENCED!
+
     resource = {
-        'Source': res,
-        'Offset': fSize,
+        'Source': os.path.split(oggF)[1],
+        'Offset': 0,
         'Size': delta
     }
     meta = {
@@ -522,9 +154,9 @@ def makeAudioClip(oggF, res):
         "Name": n,
         "LoadType": 1,
         "Channels": 2,
-        "Frequency": 44100,
+        "Frequency": sampleRate,
         "BitsPerSample": 16,
-        "Length": 268.1,
+        "Length": len(data) / float(sampleRate),
         "IsTrackerFormat": False,
         "Ambisonic": False,
         "SubsoundIndex": 0,
@@ -535,25 +167,42 @@ def makeAudioClip(oggF, res):
         "CompressionFormat": 1
     }
 
+    with open(audioClipObjPath + ".dat", 'wb') as fs:
+        audioClip.writeAudioClip(fs, d)
+    with open(audioClipObjPath + ".dat", 'rb') as fs:
+        size = len(fs.read())
+        meta['ByteSize'] = size
+
     serialize({"Metadata": meta, "Data": d}, audioClipObjPath)
 
-def makeLevel(level_dat, levelJson, level_out_dat, pidAudioClip):
+def convertDifficulty(difficulty):
+    if difficulty == 'Easy':
+        return 0
+    elif difficulty == 'Normal':
+        return 1
+    elif difficulty == 'Hard':
+        return 2
+    elif difficulty == 'Expert':
+        return 3
+    return 4
+
+def makeLevel(level_dat, levelJson, level_out_dat, objects):
     out = deserialize(level_dat)
 
     n = levelJson.split(".json")[0]
 
     arr = [
         {
-            "_difficulty": 4,
-            "_difficultyRank": item['_difficultyBeatmaps'][0]['_difficultyRank'],
-            "_noteJumpMovementSpeed": item['_difficultyBeatmaps'][0]['_noteJumpMovementSpeed'],
-            "_noteJumpStartBeatOffset": item['_difficultyBeatmaps'][0]['_noteJumpStartBeatOffset'],
+            "_difficulty": convertDifficulty(out["_difficultyBeatmapSets"][i]['_difficultyBeatmaps'][0]['_difficulty']),
+            "_difficultyRank": out["_difficultyBeatmapSets"][i]['_difficultyBeatmaps'][0]['_difficultyRank'],
+            "_noteJumpMovementSpeed": out["_difficultyBeatmapSets"][i]['_difficultyBeatmaps'][0]['_noteJumpMovementSpeed'],
+            "_noteJumpStartBeatOffset": out["_difficultyBeatmapSets"][i]['_difficultyBeatmaps'][0]['_noteJumpStartBeatOffset'],
             "_beatmapData": {
                 "FileID": 0,
-                "PathID": pidDifficultyObjects[0]
+                "PathID": objects[i + 1]['pid']
             },
             "ByteSize": 36
-        } for item in out["_difficultyBeatmapSets"]
+        } for i in range(len(out["_difficultyBeatmapSets"]))
     ]
 
     a = {
@@ -575,7 +224,7 @@ def makeLevel(level_dat, levelJson, level_out_dat, pidAudioClip):
             "_levelAuthorName": out['_levelAuthorName'],
             "_audioClip": {
                 "FileID": 0,
-                "PathID": pidAudioClip
+                "PathID": objects[0]['pid']
             },
             "_beatsPerMinute": out['_beatsPerMinute'],
             "_songTimeOffset": out['_songTimeOffset'],
@@ -591,6 +240,7 @@ def makeLevel(level_dat, levelJson, level_out_dat, pidAudioClip):
                 "FileID": 0,
                 "PathID": 252
             },
+            # ONLY TWO HANDED SUPPORT
             "_difficultyBeatmapSets": {
                 "size": 1,
                 "Array": [
@@ -660,7 +310,7 @@ def createObjects(asset_path, data, json_out_dir, output):
     j['_beatmapLevels']['Array'].append(levelPtr)
 
     serialize(j, os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
-    print("Serialized " + str(j) + " to: " + os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
+    # print("Serialized " + str(j) + " to: " + os.path.join(json_out_dir, os.path.join("LevelCollections", "ExtrasLevelCollection.json")))
 
     if '.split' in asset_path:
         asset_path = asset_path.split('.split')[0]
@@ -670,9 +320,21 @@ def createObjects(asset_path, data, json_out_dir, output):
 
     replacer.findData(replacer.getAsset(output), json_out_dir)
 
-data = {"Name": levelJson.split(".json")[0], "Objects" : [{"path": audioClipObjPath, "pid": pidAudioClip}, {'path': o, 'pid': pidDifficultyObjects[0]}, {'path': levelJson, 'pid': '?'}]}
+def addObj(data, path):
+    global LATEST_PID
+    data['Objects'].append({'path': path, 'pid': LATEST_PID})
+    LATEST_PID += 1
 
-makeSongDifficulty(diff, diffD)
-makeAudioClip(oggF, res)
-makeLevel(level, levelJson, levelDat, pidAudioClip)
+data = {"Name": levelJson.split(".json")[0], "Objects" : []}
+
+convertSong(path_to_songe, songDir, commands)
+diffs = findDifficulties(songDir)
+level = findInfo(songDir)
+
+makeAudioClip(findOgg(songDir), res)
+addObj(data, audioClipObjPath)
+for diff in diffs:
+    addObj(data, makeSongDifficulty(diff, diffD))
+makeLevel(level, levelJson, levelDat, data['Objects'])
+addObj(data, levelJson)
 createObjects(asset_path, data, json_out_dir, output)
