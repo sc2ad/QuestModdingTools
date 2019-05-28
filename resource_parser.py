@@ -4,9 +4,12 @@ def readData(fs, offset, length):
     fs.seek(offset)
     return fs.read(length)
 
-def writeData(fs, offset, data):
+def writeDataOffset(fs, offset, data):
     # Doesn't handle insertions.
     fs.seek(offset)
+    fs.write(data)
+
+def writeData(fs, data):
     fs.write(data)
 
 def replaceData(fs, offset, oldLength, data):
