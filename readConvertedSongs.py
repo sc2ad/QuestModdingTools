@@ -1,6 +1,7 @@
 import beatmapDifficultyData_to_from_UABE as difficulty
 import beatmapLevelData_to_from_UABE as levelData
 import audioClip_to_from_UABE as audioClip
+import texture2D_to_from_UABE as texture2d
 import argparse
 from helper import *
 import resource_parser
@@ -9,6 +10,7 @@ import os
 
 # pip install sounddevice
 import soundfile
+from PIL import Image
 
 LATEST_PID = 261
 
@@ -31,7 +33,7 @@ output = "../UABE Dumps/sharedassets17-nuclearStar.assets.split"
 
 audioClipObjPath = 'NuclearStarAudioClip.json'
 o = 'NuclearStarExpertPlus.json'
-levelJson = 'NuclearStarLevel.json'
+levelJson = 'NuclearStar.json'
 levelDat = 'NuclearStarLevelDat.dat'
 
 def alignSize(size):
@@ -44,6 +46,12 @@ def findDifficulties(songDir):
         if item.endswith('.dat') and not 'info' in item and not 'lyrics' in item:
             a.append(os.path.join(songDir, item))
     return a
+
+def findImage(songDir):
+    fs = os.listdir(songDir)
+    for item in fs:
+        if item.endswith('jpg'):
+            return os.path.join(songDir, item)
 
 def findInfo(songDir):
     fs = os.listdir(songDir)
@@ -112,7 +120,70 @@ def resetResource(res):
             print("Resetting res: " + res + " to: " + bkp)
             fs.write(f.read())
 
-def makeAudioClip(oggF):
+def makeTexture2D(name, image_path):
+    OVERWRITE_BYTES = False
+    meta = {
+        "TypeID": 2,
+        "ClassID": 28,
+    }
+    jpg = Image.open(image_path)
+    print(jpg.bits, jpg.size, jpg.format)
+    # Let us assume that these images are RGB24!
+    data = {
+        "Name": name + "Texture2D",
+        "ForcedFallbackFormat": 4,
+        "DownscaleFallback": False,
+        "Width": jpg.size[0],
+        "Height": jpg.size[1],
+        "CompleteImageSize": jpg.size[0] * jpg.size[1],
+        "TextureFormat": 3,
+        "MipCount": 9,
+        "IsReadable": False,
+        "StreamingMipmaps": False,
+        "StreamingMipmapsPriority": 0,
+        "ImageCount": 1,
+        "TextureDimension": 2,
+        "TextureSettings": {
+            "FilterMode": 2,
+            "Aniso": 1,
+            "MipBias": -1.0,
+            "WrapU": 1,
+            "WrapV": 1,
+            "WrapW": 0
+        },
+        "LightmapFormat": 6,
+        "ColorSpace": 1,
+        "image": {
+            "size": 0,
+            "Array": []
+        },
+        "StreamData": {
+            "Offset": 0,
+            "Size": 0,
+            "Path": ""
+        }
+    }
+    if OVERWRITE_BYTES:
+        imBytes = jpg.tobytes()
+        with open("temp.raw", 'wb') as fs:
+            writeUInt32(fs, jpg.size[0] * jpg.size[1])
+            fs.write(imBytes)
+        with open("temp.raw", 'rb') as fs:
+            data['image'] = texture2d.readTypelessData(fs)
+    else:
+        # MUST MAKE SURE IMAGE IS IN THE APK RESOURCES FOLDER!
+        data['StreamData']['Path'] = os.path.split(image_path)[1]
+        with open(image_path, 'rb') as fs:
+            data['StreamData']['Size'] = len(fs.read())
+    with open("temp.dat", 'wb') as fs:
+        texture2d.writeTexture2D(fs, data)
+    with open("temp.dat", 'rb') as fs:
+        meta['ByteSize'] = len(fs.read())
+    
+    serialize({"Metadata": meta, "Data": data}, name + "Texture2D.json")
+    return name + "Texture2D.json"
+
+def makeAudioClip(name, oggF):
     # Read OGG:
     with open(oggF, 'rb') as f:
         ogg = f.read()
@@ -129,13 +200,6 @@ def makeAudioClip(oggF):
     #     fs.seek(fSize)
     #     resource_parser.writeData(fs, ogg)
 
-    n = "NuclearStar"
-    # Default resource + name to calculate new size from
-    defaultRes = len("sharedassets17.resource")
-    defaultN = 11
-    bSize = 96 + (len(n) - defaultN) + (len(res) - defaultRes)
-    bSize = alignSize(bSize)
-
     # COPY .OGG FILE TO APK RESOURCES FOLDER, IT WILL BE REFERENCED!
 
     resource = {
@@ -144,12 +208,11 @@ def makeAudioClip(oggF):
         'Size': delta
     }
     meta = {
-        'ByteSize': bSize,
         'TypeID': 5,
         "ClassID": 83
     }
     d = {
-        "Name": n,
+        "Name": name + "AudioClip",
         "LoadType": 1,
         "Channels": 2,
         "Frequency": sampleRate,
@@ -171,7 +234,8 @@ def makeAudioClip(oggF):
         size = len(fs.read())
         meta['ByteSize'] = size
 
-    serialize({"Metadata": meta, "Data": d}, audioClipObjPath)
+    serialize({"Metadata": meta, "Data": d}, name + "AudioClip.json")
+    return name + "AudioClip.json"
 
 def convertDifficulty(difficulty):
     if difficulty == 'Easy':
@@ -184,10 +248,8 @@ def convertDifficulty(difficulty):
         return 3
     return 4
 
-def makeLevel(level_dat, levelJson, level_out_dat, objects):
+def makeLevel(n, level_dat, levelJson, level_out_dat, objects):
     out = deserialize(level_dat)
-
-    n = levelJson.split(".json")[0]
 
     arr = [
         {
@@ -232,7 +294,7 @@ def makeLevel(level_dat, levelJson, level_out_dat, objects):
             "_previewDuration": out['_previewDuration'],
             "_coverImageTexture2D": {
                 "FileID": 0,
-                "PathID": 9
+                "PathID": objects['Texture2D']['pid']
             },
             "_environmentSceneInfo": {
                 "FileID": 0,
@@ -282,11 +344,16 @@ def createObjects(asset_path, data, json_out_dir, output):
 
     asset = replacer.getAsset(asset_path)
 
-    for item in data['Objects']:
-        if 'Name' in item.keys():
-            continue
-        d = deserialize(item['path'])
-        replacer.addObject(asset, d['Data'], d['Metadata'])
+    print(data['Objects'])
+
+    for item in data['Objects'].keys():
+        if type(data['Objects'][item]) == list:
+            for v in data['Objects'][item]:
+                d = deserialize(v['path'])
+                replacer.addObject(asset, d['Data'], d['Metadata'])
+        else:
+            d = deserialize(data['Objects'][item]['path'])
+            replacer.addObject(asset, d['Data'], d['Metadata'])
 
     replacer.findData(asset, json_out_dir)
 
@@ -324,6 +391,9 @@ def addObj(name, data, path):
         data['Objects'][name].append({'path': path, 'pid': LATEST_PID})
         LATEST_PID += 1
         return
+    if type(path) == list:
+        data['Objects'][name] = path
+        return
     data['Objects'][name] = {'path': path, 'pid': LATEST_PID}
     LATEST_PID += 1
 
@@ -333,12 +403,12 @@ convertSong(path_to_songe, songDir, commands)
 diffs = findDifficulties(songDir)
 level = findInfo(songDir)
 
-makeAudioClip(findOgg(songDir))
-addObj('AudioClip', data, audioClipObjPath)
+addObj('Texture2D', data, makeTexture2D(data['Name'], findImage(songDir)))
+addObj('AudioClip', data, makeAudioClip(data['Name'], findOgg(songDir)))
 # addObj('Texture', data, textureObjPath)
 addObj('Difficulties', data, [])
 for diff in diffs:
     addObj('Difficulties', data, makeSongDifficulty(diff, diffD))
-makeLevel(level, levelJson, levelDat, data['Objects'])
+makeLevel(data['Name'], level, levelJson, levelDat, data['Objects'])
 addObj('Level', data, levelJson)
 createObjects(asset_path, data, json_out_dir, output)

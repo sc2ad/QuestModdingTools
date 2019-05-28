@@ -40,6 +40,7 @@ def readTypelessData(fs):
 	o['size'] = readUInt32(fs)
 	o['Array'] = []
 	# Break this up into sizable chunks, but not too small/too big.
+	i = 0
 	for i in range(0, o['size'], SIZE):
 		o['Array'].append({'data': readHex(fs, SIZE), 'ByteSize': SIZE})
 	# Because we could have read significantly too far, we need to make sure we account for this.

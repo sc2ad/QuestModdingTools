@@ -202,7 +202,7 @@ def overwriteAllSongsFromDirectory(assetJson, directory):
         elif obj['ClassID'] == 28:
             # This is a Texture2D!
             print("Found a Texture2D with name: " + obj['Name'] + " at index: " + str(i))
-            assetJson['Objects'] = setList(assetJson, i, obj, dir, texture2dD)
+            assetJson['Objects'] = setList(assetJson, i, obj, directory, texture2dD)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="The main file for making changes to .assets. Allows for differing length read/writes.")
