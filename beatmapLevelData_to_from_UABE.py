@@ -16,10 +16,17 @@ def readBeatmaps(fs):
     return o
 
 def writeBeatmaps(fs, o):
-    writeUInt32(fs, o['size'])
-    for item in o['Array']:
-        writePtr(fs, item['_beatmapCharacteristic'])
-        writeDifficulties(fs, item['_difficultyBeatmaps'])
+    if type(o) != list:
+        writeUInt32(fs, o['size'])
+        for item in o['Array']:
+            writePtr(fs, item['_beatmapCharacteristic'])
+            writeDifficulties(fs, item['_difficultyBeatmaps'])
+    else:
+        writeUInt32(fs, len(o))
+        for item in o:
+            writePtr(fs, item['_beatmapCharacteristic'])
+            writeDifficulties(fs, item['_difficultyBeatmaps'])
+
 
 def readDifficulties(fs):
     o = {}
@@ -61,7 +68,7 @@ def readBeatmapLevel(f, o={}):
     obj["_songTimeOffset"] = readFloat(f)
     obj["_shuffle"] = readFloat(f)
     obj["_shufflePeriod"] = readFloat(f)
-    obj["_preivewStartTime"] = readFloat(f)
+    obj["_previewStartTime"] = readFloat(f)
     obj["_previewDuration"] = readFloat(f)
     obj["_coverImageTexture2D"] = readPtr(f)
     obj["_environmentSceneInfo"] = readPtr(f)
@@ -83,7 +90,7 @@ def writeBeatmapLevel(f, obj):
     writeFloat(f, obj["_songTimeOffset"])
     writeFloat(f, obj["_shuffle"])
     writeFloat(f, obj["_shufflePeriod"])
-    writeFloat(f, obj["_preivewStartTime"])
+    writeFloat(f, obj["_previewStartTime"])
     writeFloat(f, obj["_previewDuration"])
     writePtr(f, obj["_coverImageTexture2D"])
     writePtr(f, obj["_environmentSceneInfo"])
