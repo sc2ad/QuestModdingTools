@@ -19,7 +19,7 @@ def check(fileName, offset):
         print("\t\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
         print("\t\t\t" + " ".join([str(fh.read(1).hex()) for _ in range(4)]))
 
-off = 0x0109d074 - 0x10000
+off = 0x0109d074
 
 # Looking for:
 # 06 00 00 1a 
