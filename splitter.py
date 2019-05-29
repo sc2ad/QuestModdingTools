@@ -5,7 +5,7 @@ import glob
 SPLIT_SIZE = 1024 * 1024
 
 def split(mainAssetName):
-    if '.assests' not in mainAssetName:
+    if '.assets' not in mainAssetName:
         return
     with open(mainAssetName, 'rb') as fs:
         index = 0
