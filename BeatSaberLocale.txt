@@ -1,0 +1,296 @@
+STRING ID,DESCRIPTION,ENGLISH
+LANGUAGE_CODE,IETF language tag(s) without dash,enUS enGB
+LANGUAGE_EN,[LanguageName] in english,English
+LANGUAGE_DIRECTION,ltr or rtl (text direction used by game code),ltr
+,,
+Polyglot,100,
+HEALTH_AND_SAFETY_WARNING_TITLE,,Health And Safety Warning
+HEALTH_AND_SAFETY_WARNING_CONTENT,,"A small percentage of people may experience seizures when exposed to certain lights, patterns or images even with no history of epilepsy or seizures.
+
+Please read health and safety warnings in your VR headset instruction manual before playing Beat Saber. Because you may be encouraged to perform intense action with your controllers also make sure to review your surroundings and clear any obstacles in your play area before starting the game. Always remember to stay in the center of the cleared play area and do not walk around.
+
+Playing Beat Saber requires high physical activity so follow the same habits as doing a regular workout. Don't forget to stretch before playing and rest regularly in between levels. Some people may experience muscle soreness. If you experience this then immediately stop playing the game and rest."
+CREDITS_CONTENT,,"<size=150%>Credits</color></size>
+
+<color=#FFFFFF88>Programming,
+Game & Level Design,
+Graphics</color>
+Jan Ilavsky
+
+<color=#FFFFFF88>Programming,
+Game Design</color>
+Vladimir Hrincar
+
+<color=#FFFFFF88>Music & Sound</color>
+Jaroslav Beck
+
+<color=#FFFFFF88>Programming,
+Game & Level Design</color>
+Peter Hrincar
+
+<color=#FFFFFF88>Marketing</color>
+Michaela Dvorakova
+
+<color=#FFFFFF88>Additional Programming</color>
+Jaroslav Stehlik
+Jacob Keen
+
+<color=#FFFFFF88>Additional Level Creators</color>
+Josh 'Freeek' Joynes
+Benny 'DaBeast' White
+Matt 'Purphoros' Levet
+Miroslav Mikolaj
+
+Jason 'GreatYazer' Planera
+Joonas 'Rustic' Jarvinen
+
+<color=#FFFFFF88>Music Artists</color>
+Boom Kitty
+Megaphonix
+Mord Fustang
+Sedliv
+Summer Haze & James Ruehlmann
+Backchat
+Generdyn
+Frank Bentley
+Kings & Folk
+
+<color=#FFFFFF88>Music Mastering</color>
+Tom Norris
+
+Thanks to everyone who supported us and helped us make this game a reality!
+
+<color=#FFFFFF88>Special thanks to</color>
+Barbora Ilavska, Helena Ilavska, Zuzana Vrablova, Jan Ilavsky Sr., Rober Vojta, Pavel Barak, Pavol Buday, Michal Berlinger, Pavel Dobrovsky, Jakub Dvorsky, Lukas Macura, Matous Jezek, Peter Nagy, Jenna Seiden, Marco DeMiroz, Tipatat Chennavasin, Deborah Guzman, Cix, Ruirize, Swan, AJ 'Dr Doom', Petr Sulc, Monika Hrincarova, Julie Planera"
+BUTTON_PLAY,,Play
+BUTTON_CONTINUE,,Continue
+BUTTON_SKIP,,Skip
+BUTTON_CANCEL,,Cancel
+BUTTON_RETRY,,Retry
+BUTTON_OK,,Ok
+BUTTON_APPLY,,Apply
+BUTTON_PLAY_TUTORIAL,,Play Tutorial
+BUTTON_CAMPAIGN,,Campaign
+BUTTON_CAMPAIGN_HINT,,"Play missions, clear objectives and progress through campaign!"
+BUTTON_SOLO,,Solo
+BUTTON_SOLO_HINT,,Play any level you like and compete on the online leaderboards!
+BUTTON_PARTY,,Party
+BUTTON_PARTY_HINT,,Play with your friends locally!
+BUTTON_HOW_TO_PLAY,,How To Play
+BUTTON_CREDITS,,Credits
+BUTTON_FLOOR_ADJUST,,Floor Adjust
+BUTTON_SETTINGS,,Settings
+BUTTON_PLAYER_SETTINGS,,Player Settings
+BUTTON_QUIT,,Quit
+BUTTON_BASICS,,Basics
+BUTTON_SCORE_SYSTEM,,Score System
+BUTTON_LOCAL_PLAYER,,Local Player
+BUTTON_GUEST_PLAYER,,Guest Player
+BUTTON_HIGHSCORES_ALL_TIME,,All Time
+BUTTON_HIGHSCORES_TODAY,,Today
+BUTTON_HIGHSCORES_CLEAR_ALL,,Clear All
+BUTTON_HIGHSCORES_GLOBAL,,Global
+BUTTON_HIGHSCORES_AROUND_YOU,,Around You
+BUTTON_HIGHSCORES_FRIENDS,,Friends
+BUTTON_MODIFIERS,,Modifiers
+BUTTON_BUY_LEVEL,,Buy Level
+BUTTON_BUY_MUSIC_PACK,,Buy Music Pack
+BUTTON_RESET_ROOM,,Reset Room
+BUTTON_MENU,,Menu
+BUTTON_RESTART,,Restart
+STATS_ALL,,All
+STATS_CAMPAIGN,,Campaign
+STATS_SOLO,,Solo
+STATS_PARTY,,Party
+STATS_LEVELS_PLAYED,,Levels Played
+STATS_LEVELS_CLEARED,,Levels Cleared
+STATS_LEVELS_FAILED,,Levels Failed
+STATS_TOTAL_PLAYED_TIME,,Total Played Time
+STATS_TOTAL_SCORE,,Total Score
+STATS_HAND_DISTANCE_TRAVELLED,,Hand Distance Travelled
+STATS_GOOD_CUTS,,Good Cuts
+STATS_BAD_CUTS,,Bad Cuts
+STATS_MISSED_NOTES,,Missed Notes
+STATS_FULL_COMBO,,Full Combo
+STATS_AVERAGE_CUT_SCORE,,Average Cut Score
+STATS_MAX_COMBO,,Max Combo
+STATS_HIGHSCORE,,Highscore
+STATS_MAX_RANK,,Max Rank
+STATS_RANK,,rank
+STATS_SCORE,,score
+STATS_DIFFICULTY,,Difficulty
+INFO_BOMBS_COUNT,,Bombs Count
+INFO_OBSTACLES_COUNT,,Obstacles Count
+INFO_NOTES_COUNT,,Notes Count
+INFO_BPM,,Beats per Minute
+INFO_TIME,,Time
+TITLE_HOW_TO_PLAY,,How To Play
+TITLE_PLAYER_SETTINGS,,Player Settings
+TITLE_PLAYER_STATISTICS,,Player Statistics
+TITLE_PRACTICE_MODE,,Practice Mode
+TITLE_LEVEL,,Level
+TITLE_FLOOR_ADJUST,,Floor Adjust
+TITLE_HIGHSCORES,,Highscores
+TITLE_LOCAL_HIGHSCORES,,Local Highscores
+TITLE_GAME_PLAY_SETUP,,Gameplay Setup
+TITLE_ENTER_YOUR_NAME,,Enter Your Name
+TITLE_SOLO,,Solo
+TITLE_PARTY,,Party
+TITLE_TUTORIAL,,Tutorial
+TITLE_CAMPAIGN,,Campaign
+TITLE_RESULTS,,Results
+TITLE_LEVEL_CLEARED,,Level Cleared
+PRACTICE_SONG_START,,Song Start
+PRACTICE_SPEED,,Speed
+PLAYER_SETTINGS_LEFT_HANDED,,Left-Handed
+PLAYER_SETTINGS_SWAP_COLORS,,Swap Colors
+PLAYER_SETTINGS_STATIC_LIGHTS,,Static Lights
+PLAYER_SETTINGS_PLAYER_HEIGHT,,Player Height
+PLAYER_SETTINGS_PLAYER_HEIGHT_HINT,,Make sure the room setup is done precisely before setting the player height.
+PLAYER_SETTINGS_NO_TEXTS_AND_HUD,,No Texts & HUDs
+PLAYER_SETTINGS_ADVANCED_HUD,,Advanced HUD
+PLAYER_SETTINGS_DISABLE_SFX,,Disable SFX
+PLAYER_SETTINGS_REDUCE_DEBRIS,,Reduce Debris
+CONTENT_SCORE_INFO,,"- To get <color=#ffffff88>100</color> points for one cut, just perform swing with big enough angle before (100 degrees) and after the cut (60 degrees).
+
+- Get Additional <color=#ffffff88>15</color> points based on how close to the center of the cube the cut is."
+CONTENT_CONBO_INFO,,Combo represents the number of consecutive good cuts which were not interrupted by any mistake.
+CONTENT_WARNING_PLAY_AREA,,Always remember to stay in the center of the cleared play area and do not walk around!
+HOW_TO_PLAY_NOTE_CUT,,Cut in the arrow direction and match the color
+HOW_TO_PLAY_OBSTACLES,,Avoid obstacles with your head
+HOW_TO_PLAY_BOMB_CUT,,Don't cut the bombs
+TUTORIAL_PUT_SABERS_IN_RING,,Put your sabers into these rings.
+TUTORIAL_CUT_ARROW_DIRECTION_COLOR,,Cut in the arrow direction and match the color.
+TUTORIAL_CUT_ANY_DIRECTION,,Cut in any direction.
+TUTORIAL_DO_NOT_CUT_OR_TOUCH,,Do not cut or touch with sabers!
+TUTORIAL_LEAN_RIGHT,,Lean right! <sprite=1 tint=1>
+TUTORIAL_LEAN_LEFT,,<sprite=3 tint=1> Lean left!
+TUTORIAL_CROUCH,,Crouch!
+TUTORIAL_CONGRATULATIONS,,"Congratulations!
+You are ready now."
+TUTORIAL_STAND_INSIDE_AREA,,"Stand inside the marked area.
+
+Hold the <color=#00C0FF>blue</color> saber in your right hand
+and the <color=#FF0000>red</color> in your left hand.
+
+Place both sabers into these rings to start."
+FLOOR_ADJUST_HELP_CONTENT,,Here you can adjust the position of the floor. Try to make it match your real floor.
+FLOOR_ADJUST_HEIGHT_FROM_FLOOR,,Your height from the floor
+MODIFIER_BATTERY_ENERGY,,Battery Energy
+MODIFIER_BATTERY_ENERGY_HINT,,You can make just a fixed amount of mistakes.
+MODIFIER_NO_FAIL,,No Fail
+MODIFIER_NO_FAIL_HINT,,"Bad cuts, misses or hitting an obstacle with your head will not deplete your energy bar."
+MODIFIER_NO_OBSTACLES,,No Obstacles
+MODIFIER_NO_OBSTACLES_HINT,,There will be no obstacles in the level.
+MODIFIER_DISAPPEARING_ARROWS,,Disappearing Arrows
+MODIFIER_DISAPPEARING_ARROWS_HINT,,Arrows on the cubes will disappear before they reach you.
+MODIFIER_FASTER_SONG,,Faster Song
+MODIFIER_FASTER_SONG_HINT,,Song will play faster.
+MODIFIER_GHOST_NOTES,,Ghost Notes
+MODIFIER_GHOST_NOTES_HINT,,Cubes are invisible & arrows will disappear before they reach you.
+MODIFIER_INSTA_FAIL,,Insta Fail
+MODIFIER_INSTA_FAIL_HINT,,Every mistake will cause instant level fail.
+MODIFIER_NO_ARROWS,,No Arrows
+MODIFIER_NO_ARROWS_HINT,,You can cut all the cubes in any direction.
+MODIFIER_NO_BOMBS,,No Bombs
+MODIFIER_NO_BOMBS_HINT,,There will be no bombs in the level.
+MODIFIER_PRO_MODE,,Pro Mode
+MODIFIER_PRO_MODE_HINT,,There's no tolerance in hitting cubes.
+MODIFIER_SLOWER_SONG,,Slower Song
+MODIFIER_SLOWER_SONG_HINT,,Song will play slower.
+MODIFIER_STRICT_ANGLES,,Strict Angles
+MODIFIER_STRICT_ANGLES_HINT,,Only really precise cuts will be evaulated as good.
+MODIFIER_SUPER_FAST_NOTES,,Super Fast Notes
+MODIFIER_SUPER_FAST_NOTES_HINT,,Cubes will move super fast.
+MODIFIERS_TOTAL_MULTIPLIER,,Total Multiplier
+MODIFIERS_MAX_RANK_WITH_MODIFIERS,,Max Rank with current modifiers
+STEAM_BOUGHT_CONTENT_INFO,,If you bought this content but don't see it here please check in Steam if it was properly downloaded.
+STATUS_DOWNLOADING,,Downloading
+STATUS_ERROR_GETTING_DATA,,Error getting data.
+MENU_GRAPHICS,,Graphics
+MENU_ADVANCED_GRAPHICS,,Advanced Graphics
+MENU_ROOM_ADJUST,,Room Adjust
+MENU_SMOOTH_CAMERA,,Smooth Camera
+MENU_OTHERS,,Others
+SETTINGS_MIRROR_QUALITY,,Mirror Quality
+SETTINGS_SMOKE,,Smoke
+SETTINGS_BLOOM_FOG_QUALITY,,Bloom Fog Quality
+SETTINGS_BLOOM_POST_PROCESS,,Bloom Post Process
+SETTINGS_ROOM_X_OFFSET,,X Offset
+SETTINGS_ROOM_Y_OFFSET,,Y Offset
+SETTINGS_ROOM_Z_OFFSET,,Z Offset
+SETTINGS_ROOM_ROTATION,,Rotation
+SETTINGS_NON_VR_RESOLUTION,,Non VR Resolution
+SETTINGS_FULLSCREEN,,Fullscreen
+SETTINGS_RENDERING_SCALE,,Rendering Scale
+SETTINGS_ANTIALIASING_MSAA,,Antialiasing (MSAA)
+SETTINGS_VOLUME,,Volume
+SETTINGS_PAUSE_PRESS_DURATION,,Pause Press Duration
+SETTINGS_SMOOTH_CAMERA,,Smooth Camera
+SETTINGS_SMOOTH_CAMERA_INFO,,"Enabling this feature will replace Beat Sabers desktop window with a smoothed, customised field of view, suitable for recording & streaming"
+SETTINGS_SMOOTH_CAMERA_WARNING,,Smooth camera is expensive and can cause bad performance on some hardware configurations.
+SETTINGS_FIELD_OF_VIEW,,Field Of View
+SETTINGS_SMOOTHNESS,,Smoothness
+SETTINGS_ON,,On
+SETTINGS_OFF,,Off
+SETTINGS_LOW,,Low
+SETTINGS_HIGH,,High
+SETTINGS_INSTANT,,Instant
+SETTINGS_LONG,,Long
+DIFFICULTY_EASY,,Easy
+DIFFICULTY_EASY_SHORT,,E
+DIFFICULTY_NORMAL,,Normal
+DIFFICULTY_NORMAL_SHORT,,N
+DIFFICULTY_HARD,,Hard
+DIFFICULTY_HARD_SHORT,,H
+DIFFICULTY_EXPERT,,Expert
+DIFFICULTY_EXPERT_SHORT,,X
+DIFFICULTY_EXPERT_PLUS,,Expert+
+DIFFICULTY_EXPERT_PLUS_SHORT,,X+
+DIFFICULTY_UNKNOWN,,Unknown
+DIFFICULTY_UNKNOWN_SHORT,,/
+STAGE_LOCK_HINT,,To continue up you need to finish some levels before this barrier.
+CAMPAIGN_MISSION,,Mission
+CAMPAIGN_SONG,,"Song
+<color=#ffffff88>{0}</color>"
+CAMPAIGN_DIFFICULTY,,"Difficulty
+<color=#ffffff88>{0}</color>"
+CAMPAIGN_TYPE,,"Type
+<color=#ffffff88>{0}</color>"
+CAMPAIGN_MISSION_COMPLETE,,Mission Complete
+CAMPAIGN_MISSION_FAILED,,Mission Failed
+CAMPAIGN_MODIFIERS,,Modifiers
+CAMPAIGN_OBJECTIVES,,Objectives
+CAMPAIGN_CHARACTERISTIC,,characteristic
+CAMPAIGN_FINISH_LEVEL,,"Finish
+Level"
+LEVEL_NO_ARROWS,,No Arrows
+LEVEL_NO_ARROWS_HINT,,No Arrows
+LEVEL_ONE_SABER,,One Saber
+LEVEL_ONE_SABER_HINT,,One Saber
+LEVEL_STANDARD,,Standard
+LEVEL_STANDARD_HINT,,Standard
+PROMPT_INFORMATION,,Information
+PROMPT_HAVENT_PLAYED_YET,,It looks like you haven't played Beat Saber yet. Would you like to play tutorial first?
+PROMPT_YES,,Yes
+PROMPT_NO,,No
+RESULTS_LEVEL_FAILED,,Level FAILED
+OBJECTIVE_BAD_CUTS,,Bad Cuts
+OBJECTIVE_COMBO,,Combo
+OBJECTIVE_FULL_COMBO,,Full Combo
+OBJECTIVE_HANDS_MOVEMENT,,Hands Movement
+OBJECTIVE_MISS,,Miss
+OBJECTIVE_SCORE,,Score
+MISSION_NEW_OBJECTIVE_TITLE,,New Objective
+MISSION_HELP_MIN_SCORE_TITLE,,In this mission your score must be higher than the specified minimum.
+MISSION_HELP_MAX_BAD_CUTS_TITLE,,In this mission you can make only limited amount of mistakes (<color=#ffffff88>BAD CUTS</color> and <color=#ffffff88>MISSED</color> notes)
+MISSION_HELP_MIN_COMBO_TITLE,,In this mission you must reach specified <color=#ffffff88>combo</color> number.
+MISSION_HELP_MIN_HANDS_MOVEMENT_TITLE,,In this mission your goal is to move your <color=#FFFFFF88>hands</color> enough to travel the <color=#FFFFFF88>specified MINIMUM distance.</color>
+MISSION_HELP_MIN_HANDS_MOVEMENT_DESCRIPTION,,To complete this objective you usually just need to move with your hands a lot. Don't use just your wrists but whole arms.
+MISSION_HELP_MAX_COMBO_TITLE,,In this mission you have to keep your <color=#FFFFFF88>combo</color> below specified number.
+MISSION_HELP_MAX_COMBO_TITLE_DESCRIPTION,,One way how to complete this kind of objective is to make deliberate mistakes.
+BUTTON_LEVEL_EDITOR,,Level Editor
+SETTINGS_SCREEN_DISTORTION_EFFECTS,,Screen Distortion Effects
+CUSTOM_SONGS_LEADERBOARDS_NOT_SUPPORTED,,Leaderboards for custom songs are not supported.
+TITLE_CUSTOM_SONGS,,Custom Songs
+SETTINGS_AUDIO_LATENCY,,Audio Latency

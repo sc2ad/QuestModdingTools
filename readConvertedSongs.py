@@ -21,7 +21,7 @@ LATEST_PID = 261
 # songDir = '../NUCLEAR-STAR/' # The directory for the song.
 
 # path_to_songe = 'songe-converter.exe'
-commands = ['-k']
+commands = ['-k', '-g **/info.json']
 resourcesPath = "assets/bin/Data"
 sharedAssets = "sharedassets17.assets.split"
 
