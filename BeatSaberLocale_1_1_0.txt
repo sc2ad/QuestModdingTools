@@ -1,0 +1,377 @@
+STRING ID,DESCRIPTION,ENGLISH,FRENCH / FRANÇAIS,SPANISH / ESPAÑOL,GERMAN / DEUTSCH,ITALIAN / ITALIANO,PORTUGUESE / PORTUGUÊS (BR),PORTUGUESE / PORTUGUÊS (PT),RUSSIAN / РУССКИЙ,GREEK / ΕΛΛΗΝΙΚΑ,TURKISH / TÜRKÇE,DANISH / DANSK,NORWEGIAN (NB) / NORSK BOKMÅL,SWEDISH / SVENSKA,DUTCH / NEDERLANDS,POLISH / POLSKI,FINNISH / SUOMI,JAPANESE / 日本語,SIMPLIFIED CHINESE / 简体中文,TRADITIONAL CHINESE / 繁体中文,KOREAN / 한국어,CZECH / ČEŠTINA,HUNGARIAN / MAGYAR,ROMANIAN / ROMÂNĂ,THAI / ภาษาไทย,BULGARIAN / БЪЛГАРСКИ,עברית / HEBREW,العربية / ARABIC,BOSNIAN
+LANGUAGE_CODE,IETF language tag(s) without dash,enUS enGB,frFR,esES esAR esMX,deDE deCH deAT,itIT itCH,ptBR,ptPT,ruRU,elGR,trTR,daDK,noNB,svSE,nlNL,plPL,fiFI,jaJP,zhCN zhSG,zhTW zhHK zhMO,koKR,csCZ,huHU,roRO,thTH,bgBG,heIL,ar001,bsBS
+LANGUAGE_EN,[LanguageName] in english,English,French,Spanish,German,Italian,Portuguese (Brazil),Portuguese,Russian,Greek,Turkish,Danish,Norwegian,Swedish,Dutch,Polish,Finnish,Japanese,Simplified Chinese,Traditional Chinese,Korean,Czech,Hungarian,Romanian,Thai,Bulgarian,Hebrew,Arabic,Bosnian
+LANGUAGE_DIRECTION,ltr or rtl (text direction used by game code),ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,ltr,rtl,rtl,ltr
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Polyglot,100,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+HEALTH_AND_SAFETY_WARNING_TITLE,,Health And Safety Warning,,,,,,,,,,,,,,,,,健康与安全警示,,,,,,,,,,
+HEALTH_AND_SAFETY_WARNING_CONTENT,,"A small percentage of people may experience seizures when exposed to certain lights, patterns or images even with no history of epilepsy or seizures.
+
+Please read health and safety warnings in your VR headset instruction manual before playing Beat Saber. Because you may be encouraged to perform intense action with your controllers also make sure to review your surroundings and clear any obstacles in your play area before starting the game. Always remember to stay in the center of the cleared play area and do not walk around.
+
+Playing Beat Saber requires high physical activity so follow the same habits as doing a regular workout. Don't forget to stretch before playing and rest regularly in between levels. Some people may experience muscle soreness. If you experience this then immediately stop playing the game and rest.",,,,,,,,,,,,,,,,,"极小部分人可能会在看到特定灯光、图案或图像时出现癫痫症状。甚至没有癫痫或抽搐史的人也会出现此症状。
+
+在开始玩《节奏空间》之前，请仔细阅读在 VR 头盔使用指南中的健康与安全警示。您可能需要使用控制器做出激烈的动作，所以请务必在开始游戏前检查周围环境，并且清除游戏区域内所有障碍。切记，要站在周围无障碍的游戏区域中心，不要四处走动。
+
+《节奏空间》需要您作高强度的身体动作，因此请遵循您常规锻炼时的习惯。在游戏开始之前别忘了做一下拉伸，并且在游戏中途适时作休息。部分人可能会有肌肉酸痛感。如果您遇到此情况，请立即停止游戏并休息。",,,,,,,,,,
+CREDITS_CONTENT,,"<size=150%>Credits</color></size>
+
+<color=#FFFFFF88>Programming,
+Game & Level Design,
+Graphics</color>
+Jan Ilavsky
+
+<color=#FFFFFF88>Programming,
+Game Design</color>
+Vladimir Hrincar
+
+<color=#FFFFFF88>Music & Sound</color>
+Jaroslav Beck
+
+<color=#FFFFFF88>Programming,
+Game & Level Design</color>
+Peter Hrincar
+
+<color=#FFFFFF88>Marketing</color>
+Michaela Dvorakova
+
+<color=#FFFFFF88>Additional Programming</color>
+Jaroslav Stehlik
+Jacob Keen
+Jindrich Skeldal
+
+<color=#FFFFFF88>Additional Level Creators</color>
+Josh 'Freeek' Joynes
+Benny 'DaBeast' White
+Matt 'Purphoros' Levet
+Miroslav Mikolaj
+Jason 'GreatYazer' Planera
+Joonas 'Rustic' Jarvinen
+
+<color=#FFFFFF88>Music Artists</color>
+Boom Kitty
+Megaphonix
+Mord Fustang
+Sedliv
+Summer Haze & James Ruehlmann
+Backchat
+Generdyn
+Frank Bentley
+Kings & Folk
+
+<color=#FFFFFF88>Music Mastering</color>
+Tom Norris
+
+<color=#FFFFFF88>Monstercat Music Pack Vol.1</color>
+Artists: Aero Chord, Pegboard Nerds, Tokyo Machine, Muzzy, RIOT, Rogue, Stonebank, Kayzo, Tristam, Feint
+Label: Monstercat
+
+<color=#FFFFFF88>Imagine Dragons Music Pack</color>
+Natural (2018), Machine (2018), Bad Lair (2018), Thunder (2017), Believer (2017), Whatever It Takes (2017), Radioactive (2012), Digital (2018), It’s Time (2012), Warriors (2015).
+Artist: Imagine Dragons
+Label: Universal Music s.r.o.
+
+
+Thanks to everyone who supported us and helped us make this game a reality!
+
+<color=#FFFFFF88>Special thanks to</color>
+Barbora Ilavska, Helena Ilavska, Zuzana Vrablova, Jan Ilavsky Sr., Rober Vojta, Pavel Barak, Pavol Buday, Michal Berlinger, Pavel Dobrovsky, Jakub Dvorsky, Lukas Macura, Matous Jezek, Peter Nagy, Jenna Seiden, Marco DeMiroz, Tipatat Chennavasin, Deborah Guzman, Cix, Ruirize, Swan, AJ 'Dr Doom', Petr Sulc, Monika Hrincarova, Julie Planera",,,,,,,,,,,,,,,,,"<size=150%>制作人员</color></size>
+
+<color=#FFFFFF88>编程、
+游戏和关卡设计、
+画面</color>
+Jan Ilavsky
+
+<color=#FFFFFF88>编程、
+游戏设计</color>
+Vladimir Hrincar
+
+<color=#FFFFFF88>音乐与音效</color>
+Jaroslav Beck
+
+<color=#FFFFFF88>编程、
+游戏和关卡设计</color>
+Peter Hrincar
+
+<color=#FFFFFF88>市场</color>
+Michaela Dvorakova
+
+<color=#FFFFFF88>补充编程</color>
+Jaroslav Stehlik
+Jacob Keen
+Jindrich Skeldal
+
+<color=#FFFFFF88>补充关卡制作</color>
+Josh 'Freeek' Joynes
+Benny 'DaBeast' White
+Matt 'Purphoros' Levet
+Miroslav Mikolaj
+Jason 'GreatYazer' Planera
+Joonas 'Rustic' Jarvinen
+
+<color=#FFFFFF88>音乐制作</color>
+Boom Kitty
+Megaphonix
+Mord Fustang
+Sedliv
+Summer Haze 和 James Ruehlmann
+Backchat
+Generdyn
+Frank Bentley
+Kings & Folk
+
+<color=#FFFFFF88>音乐处理</color>
+Tom Norris
+
+感谢支持我们帮助我们完成这款游戏的每个人！
+
+<color=#FFFFFF88>特别鸣谢</color>
+Barbora Ilavska, Helena Ilavska, Zuzana Vrablova, Jan Ilavsky Sr., Rober Vojta, Pavel Barak, Pavol Buday, Michal Berlinger, Pavel Dobrovsky, Jakub Dvorsky, Lukas Macura, Matous Jezek, Peter Nagy, Jenna Seiden, Marco DeMiroz, Tipatat Chennavasin, Deborah Guzman, Cix, Ruirize, Swan, AJ 'Dr Doom', Petr Sulc, Monika Hrincarova, Julie Planera",,,,,,,,,,
+BUTTON_PLAY,,Play,,,,,,,,,,,,,,,,,开始,,,,,,,,,,
+BUTTON_CONTINUE,,Continue,,,,,,,,,,,,,,,,,继续,,,,,,,,,,
+BUTTON_SKIP,,Skip,,,,,,,,,,,,,,,,,跳过,,,,,,,,,,
+BUTTON_CANCEL,,Cancel,,,,,,,,,,,,,,,,,取消,,,,,,,,,,
+BUTTON_RETRY,,Retry,,,,,,,,,,,,,,,,,重试,,,,,,,,,,
+BUTTON_OK,,Ok,,,,,,,,,,,,,,,,,确认,,,,,,,,,,
+BUTTON_APPLY,,Apply,,,,,,,,,,,,,,,,,应用,,,,,,,,,,
+BUTTON_PLAY_TUTORIAL,,Play Tutorial,,,,,,,,,,,,,,,,,开始教程,,,,,,,,,,
+BUTTON_CAMPAIGN,,Campaign,,,,,,,,,,,,,,,,,关卡模式,,,,,,,,,,
+BUTTON_CAMPAIGN_HINT,,"Play missions, clear objectives and progress through campaign!",,,,,,,,,,,,,,,,,开始任务，完成目标，在关卡模式中一路前进！,,,,,,,,,,
+BUTTON_SOLO,,Solo,,,,,,,,,,,,,,,,,单人模式,,,,,,,,,,
+BUTTON_SOLO_HINT,,Play any level you like and compete on the online leaderboards!,,,,,,,,,,,,,,,,,随意选择关卡畅玩，并在网络排行榜上与人竞争！,,,,,,,,,,
+BUTTON_PARTY,,Party,,,,,,,,,,,,,,,,,聚会模式,,,,,,,,,,
+BUTTON_PARTY_HINT,,Play with your friends locally!,,,,,,,,,,,,,,,,,在本地和好友一起玩！,,,,,,,,,,
+BUTTON_HOW_TO_PLAY,,How To Play,,,,,,,,,,,,,,,,,游戏玩法,,,,,,,,,,
+BUTTON_CREDITS,,Credits,,,,,,,,,,,,,,,,,制作人员,,,,,,,,,,
+MENU_FLOOR_ADJUST,,Floor Adjust,,,,,,,,,,,,,,,,,地面校准,,,,,,,,,,
+BUTTON_SETTINGS,,Settings,,,,,,,,,,,,,,,,,设置,,,,,,,,,,
+BUTTON_PLAYER_SETTINGS,,Player Settings,,,,,,,,,,,,,,,,,玩家设置,,,,,,,,,,
+BUTTON_QUIT,,Quit,,,,,,,,,,,,,,,,,退出,,,,,,,,,,
+BUTTON_BASICS,,Basics,,,,,,,,,,,,,,,,,基础内容,,,,,,,,,,
+BUTTON_SCORE_SYSTEM,,Score System,,,,,,,,,,,,,,,,,得分系统,,,,,,,,,,
+BUTTON_LOCAL_PLAYER,,Local Player,,,,,,,,,,,,,,,,,本地玩家,,,,,,,,,,
+BUTTON_GUEST_PLAYER,,Guest Player,,,,,,,,,,,,,,,,,访客玩家,,,,,,,,,,
+BUTTON_HIGHSCORES_ALL_TIME,,All Time,,,,,,,,,,,,,,,,,所有时间,,,,,,,,,,
+BUTTON_HIGHSCORES_TODAY,,Today,,,,,,,,,,,,,,,,,今天,,,,,,,,,,
+BUTTON_HIGHSCORES_CLEAR_ALL,,Clear All,,,,,,,,,,,,,,,,,清除所有,,,,,,,,,,
+BUTTON_HIGHSCORES_GLOBAL,,Global,,,,,,,,,,,,,,,,,全球,,,,,,,,,,
+BUTTON_HIGHSCORES_AROUND_YOU,,Around You,,,,,,,,,,,,,,,,,附近,,,,,,,,,,
+BUTTON_HIGHSCORES_FRIENDS,,Friends,,,,,,,,,,,,,,,,,好友,,,,,,,,,,
+BUTTON_MODIFIERS,,Modifiers,,,,,,,,,,,,,,,,,模组使用者,,,,,,,,,,
+BUTTON_BUY_LEVEL,,Buy Level,,,,,,,,,,,,,,,,,购买关卡,,,,,,,,,,
+BUTTON_BUY_MUSIC_PACK,,Buy Music Pack,,,,,,,,,,,,,,,,,购买音乐包,,,,,,,,,,
+BUTTON_RESET_ROOM,,Reset Room,,,,,,,,,,,,,,,,,重置房间,,,,,,,,,,
+BUTTON_MENU,,Menu,,,,,,,,,,,,,,,,,菜单,,,,,,,,,,
+BUTTON_RESTART,,Restart,,,,,,,,,,,,,,,,,重新开始,,,,,,,,,,
+STATS_ALL,,All,,,,,,,,,,,,,,,,,所有,,,,,,,,,,
+STATS_CAMPAIGN,,Campaign,,,,,,,,,,,,,,,,,关卡模式,,,,,,,,,,
+STATS_SOLO,,Solo,,,,,,,,,,,,,,,,,单人模式,,,,,,,,,,
+STATS_PARTY,,Party,,,,,,,,,,,,,,,,,聚会模式,,,,,,,,,,
+STATS_LEVELS_PLAYED,,Levels Played,,,,,,,,,,,,,,,,,玩过的关卡,,,,,,,,,,
+STATS_LEVELS_CLEARED,,Levels Cleared,,,,,,,,,,,,,,,,,完成的关卡,,,,,,,,,,
+STATS_LEVELS_FAILED,,Levels Failed,,,,,,,,,,,,,,,,,失败的关卡,,,,,,,,,,
+STATS_TOTAL_PLAYED_TIME,,Total Played Time,,,,,,,,,,,,,,,,,游戏总时间,,,,,,,,,,
+STATS_TOTAL_SCORE,,Total Score,,,,,,,,,,,,,,,,,总分数,,,,,,,,,,
+STATS_HAND_DISTANCE_TRAVELLED,,Hand Distance Travelled,,,,,,,,,,,,,,,,,双手移动的距离,,,,,,,,,,
+STATS_GOOD_CUTS,,Good Cuts,,,,,,,,,,,,,,,,,精准击中,,,,,,,,,,
+STATS_BAD_CUTS,,Bad Cuts,,,,,,,,,,,,,,,,,勉强击中,,,,,,,,,,
+STATS_MISSED_NOTES,,Missed Notes,,,,,,,,,,,,,,,,,漏过的音符,,,,,,,,,,
+STATS_FULL_COMBO,,Full Combo,,,,,,,,,,,,,,,,,全连击,,,,,,,,,,
+STATS_AVERAGE_CUT_SCORE,,Average Cut Score,,,,,,,,,,,,,,,,,平均每次削砍得分,,,,,,,,,,
+STATS_MAX_COMBO,,Max Combo,,,,,,,,,,,,,,,,,最大连击数,,,,,,,,,,
+STATS_HIGHSCORE,,Highscore,,,,,,,,,,,,,,,,,高分,,,,,,,,,,
+STATS_MAX_RANK,,Max Rank,,,,,,,,,,,,,,,,,最高排名,,,,,,,,,,
+STATS_RANK,,rank,,,,,,,,,,,,,,,,,排名,,,,,,,,,,
+STATS_SCORE,,score,,,,,,,,,,,,,,,,,得分,,,,,,,,,,
+STATS_DIFFICULTY,,Difficulty,,,,,,,,,,,,,,,,,难度,,,,,,,,,,
+INFO_BOMBS_COUNT,,Bombs Count,,,,,,,,,,,,,,,,,炸弹总数,,,,,,,,,,
+INFO_OBSTACLES_COUNT,,Obstacles Count,,,,,,,,,,,,,,,,,障碍总数,,,,,,,,,,
+INFO_NOTES_COUNT,,Notes Count,,,,,,,,,,,,,,,,,音符总数,,,,,,,,,,
+INFO_BPM,,Beats per Minute,,,,,,,,,,,,,,,,,每分钟的节拍,,,,,,,,,,
+INFO_TIME,,Time,,,,,,,,,,,,,,,,,时间,,,,,,,,,,
+TITLE_HOW_TO_PLAY,,How To Play,,,,,,,,,,,,,,,,,游戏玩法,,,,,,,,,,
+TITLE_PLAYER_SETTINGS,,Player Settings,,,,,,,,,,,,,,,,,玩家设置,,,,,,,,,,
+TITLE_PLAYER_STATISTICS,,Player Statistics,,,,,,,,,,,,,,,,,玩家统计,,,,,,,,,,
+TITLE_PRACTICE_MODE,,Practice Mode,,,,,,,,,,,,,,,,,练习模式,,,,,,,,,,
+TITLE_LEVEL,,Level,,,,,,,,,,,,,,,,,关卡,,,,,,,,,,
+TITLE_FLOOR_ADJUST,,Floor Adjust,,,,,,,,,,,,,,,,,地面校准,,,,,,,,,,
+TITLE_HIGHSCORES,,Highscores,,,,,,,,,,,,,,,,,高分榜,,,,,,,,,,
+TITLE_LOCAL_HIGHSCORES,,Local Highscores,,,,,,,,,,,,,,,,,本地高分榜,,,,,,,,,,
+TITLE_GAME_PLAY_SETUP,,Gameplay Setup,,,,,,,,,,,,,,,,,游戏设置,,,,,,,,,,
+TITLE_ENTER_YOUR_NAME,,Enter Your Name,,,,,,,,,,,,,,,,,输入你的名字,,,,,,,,,,
+TITLE_SOLO,,Solo,,,,,,,,,,,,,,,,,单人模式,,,,,,,,,,
+TITLE_PARTY,,Party,,,,,,,,,,,,,,,,,聚会模式,,,,,,,,,,
+TITLE_TUTORIAL,,Tutorial,,,,,,,,,,,,,,,,,教程,,,,,,,,,,
+TITLE_CAMPAIGN,,Campaign,,,,,,,,,,,,,,,,,关卡模式,,,,,,,,,,
+TITLE_RESULTS,,Results,,,,,,,,,,,,,,,,,成绩,,,,,,,,,,
+TITLE_LEVEL_CLEARED,,Level Cleared,,,,,,,,,,,,,,,,,完成的关卡,,,,,,,,,,
+PRACTICE_SONG_START,,Song Start,,,,,,,,,,,,,,,,,歌曲开始,,,,,,,,,,
+PRACTICE_SPEED,,Speed,,,,,,,,,,,,,,,,,速度,,,,,,,,,,
+PLAYER_SETTINGS_LEFT_HANDED,,Left-Handed,,,,,,,,,,,,,,,,,惯用左手,,,,,,,,,,
+PLAYER_SETTINGS_SWAP_COLORS,,Swap Colors,,,,,,,,,,,,,,,,,交换颜色,,,,,,,,,,
+PLAYER_SETTINGS_STATIC_LIGHTS,,Static Lights,,,,,,,,,,,,,,,,,静态光,,,,,,,,,,
+PLAYER_SETTINGS_PLAYER_HEIGHT,,Player Height,,,,,,,,,,,,,,,,,玩家高度,,,,,,,,,,
+PLAYER_SETTINGS_PLAYER_HEIGHT_HINT,,Make sure the room setup is done precisely before setting the player height.,,,,,,,,,,,,,,,,,在设置玩家高度之前，务必准确完成空间设置。,,,,,,,,,,
+PLAYER_SETTINGS_NO_TEXTS_AND_HUD,,No Texts & HUDs,,,,,,,,,,,,,,,,,不显示文本和抬头显示,,,,,,,,,,
+PLAYER_SETTINGS_ADVANCED_HUD,,Advanced HUD,,,,,,,,,,,,,,,,,高级抬头显示,,,,,,,,,,
+PLAYER_SETTINGS_DISABLE_SFX,,Disable SFX,,,,,,,,,,,,,,,,,禁用音效,,,,,,,,,,
+PLAYER_SETTINGS_REDUCE_DEBRIS,,Reduce Debris,,,,,,,,,,,,,,,,,减少碎片,,,,,,,,,,
+CONTENT_SCORE_INFO,,"- To get <color=#ffffff88>100</color> points in one cut, perform a swing with a large starting angle, 100 degrees from where the cube is hit, and follow through after hitting the cube for 60 degrees more.
+
+- A bonus <color=#ffffff88>15</color> points will be awarded based on how close to the center of the cube the cut is made.",,,,,,,,,,,,,,,,,"- 如果想要得到 <color=#ffffff88>100</color>分的削砍，只需在削砍前后挥动的角度足够大（前 90°，后 60°）。
+
+- 根据削砍位置与方块中心的距离，可以额外获得 <color=#ffffff88>10</color> 分。",,,,,,,,,,
+CONTENT_CONBO_INFO,,Combo represents the number of consecutive good cuts which were not interrupted by any mistake.,,,,,,,,,,,,,,,,,连击表示连续精准击中的次数，不能因失误而打断。,,,,,,,,,,
+CONTENT_WARNING_PLAY_AREA,,Always remember to stay in the center of the cleared play area and do not walk around!,,,,,,,,,,,,,,,,,切记，要站在周围无障碍的游戏区域中心，不要四处走动！,,,,,,,,,,
+HOW_TO_PLAY_NOTE_CUT,,Cut in the arrow direction and match the color,,,,,,,,,,,,,,,,,沿着箭头的方向削砍并匹配颜色,,,,,,,,,,
+HOW_TO_PLAY_OBSTACLES,,Avoid obstacles with your head,,,,,,,,,,,,,,,,,避免头撞上障碍,,,,,,,,,,
+HOW_TO_PLAY_BOMB_CUT,,Don't cut the bombs,,,,,,,,,,,,,,,,,不要砍到炸弹,,,,,,,,,,
+TUTORIAL_PUT_SABERS_IN_RING,,Put your sabers into these rings.,,,,,,,,,,,,,,,,,将光刃放入环内。,,,,,,,,,,
+TUTORIAL_CUT_ARROW_DIRECTION_COLOR,,Cut in the arrow direction and match the color.,,,,,,,,,,,,,,,,,沿着箭头的方向削砍并匹配颜色。,,,,,,,,,,
+TUTORIAL_CUT_ANY_DIRECTION,,Cut in any direction.,,,,,,,,,,,,,,,,,沿任意方向削砍。,,,,,,,,,,
+TUTORIAL_DO_NOT_CUT_OR_TOUCH,,Do not cut or touch with sabers!,,,,,,,,,,,,,,,,,不要用光刃削砍或触碰！,,,,,,,,,,
+TUTORIAL_LEAN_RIGHT,,Lean right! <sprite=1 tint=1>,,,,,,,,,,,,,,,,,头往右偏！<sprite=1 tint=1>,,,,,,,,,,
+TUTORIAL_LEAN_LEFT,,<sprite=3 tint=1> Lean left!,,,,,,,,,,,,,,,,,<sprite=3 tint=1>头往左偏！,,,,,,,,,,
+TUTORIAL_CROUCH,,Crouch!,,,,,,,,,,,,,,,,,蹲下！,,,,,,,,,,
+TUTORIAL_CONGRATULATIONS,,"Congratulations!
+You are ready now.",,,,,,,,,,,,,,,,,"恭喜！
+你已经准备完毕。",,,,,,,,,,
+TUTORIAL_STAND_INSIDE_AREA,,"Stand inside the marked area.
+
+Hold the <color=#00C0FF>blue</color> saber in your right hand
+and the <color=#FF0000>red</color> in your left hand.
+
+Place both sabers into these rings to start.",,,,,,,,,,,,,,,,,"站在标记的区域内。
+
+右手紧握<color=#00C0FF>蓝色</color>光刃
+左手紧握<color=#FF0000>红色</color>光刃。
+
+将两把光刃放入环内即可开始。",,,,,,,,,,
+FLOOR_ADJUST_HELP_CONTENT,,Here you can adjust the position of the floor. Try to make it match your real floor.,,,,,,,,,,,,,,,,,你可以在这里调整地面的位置。尽量匹配真实地面。,,,,,,,,,,
+FLOOR_ADJUST_HEIGHT_FROM_FLOOR,,Your height from the floor,,,,,,,,,,,,,,,,,从地面算起你的高度,,,,,,,,,,
+MODIFIER_BATTERY_ENERGY,,Battery Energy,,,,,,,,,,,,,,,,,电池电量,,,,,,,,,,
+MODIFIER_BATTERY_ENERGY_HINT,,You can make just a fixed amount of mistakes.,,,,,,,,,,,,,,,,,你的容错率有限。,,,,,,,,,,
+MODIFIER_NO_FAIL,,No Fail,,,,,,,,,,,,,,,,,不能失误,,,,,,,,,,
+MODIFIER_NO_FAIL_HINT,,"Bad cuts, misses or hitting an obstacle with your head will not deplete your energy bar.",,,,,,,,,,,,,,,,,勉强击中、漏过或者头撞到障碍都会消耗能量条。,,,,,,,,,,
+MODIFIER_NO_OBSTACLES,,No Obstacles,,,,,,,,,,,,,,,,,没有障碍,,,,,,,,,,
+MODIFIER_NO_OBSTACLES_HINT,,There will be no obstacles in the level.,,,,,,,,,,,,,,,,,关卡里不会出现障碍。,,,,,,,,,,
+MODIFIER_DISAPPEARING_ARROWS,,Disappearing Arrows,,,,,,,,,,,,,,,,,无形箭头,,,,,,,,,,
+MODIFIER_DISAPPEARING_ARROWS_HINT,,Arrows on the cubes will disappear before they reach you.,,,,,,,,,,,,,,,,,方块上的箭头在接近你时会消失。,,,,,,,,,,
+MODIFIER_FASTER_SONG,,Faster Song,,,,,,,,,,,,,,,,,节拍加快,,,,,,,,,,
+MODIFIER_FASTER_SONG_HINT,,Song will play faster.,,,,,,,,,,,,,,,,,歌曲播放速度更快。,,,,,,,,,,
+MODIFIER_GHOST_NOTES,,Ghost Notes,,,,,,,,,,,,,,,,,隐藏音符,,,,,,,,,,
+MODIFIER_GHOST_NOTES_HINT,,Cubes are invisible & arrows will disappear before they reach you.,,,,,,,,,,,,,,,,,方块隐形，且箭头在接近你时会消失。,,,,,,,,,,
+MODIFIER_INSTA_FAIL,,Insta Fail,,,,,,,,,,,,,,,,,瞬间判负,,,,,,,,,,
+MODIFIER_INSTA_FAIL_HINT,,Every mistake will cause instant level fail.,,,,,,,,,,,,,,,,,每个失误都会导致通关失败。,,,,,,,,,,
+MODIFIER_NO_ARROWS,,No Arrows,,,,,,,,,,,,,,,,,没有箭头,,,,,,,,,,
+MODIFIER_NO_ARROWS_HINT,,You can cut all the cubes in any direction.,,,,,,,,,,,,,,,,,你可以沿着任意方向来削砍方块。,,,,,,,,,,
+MODIFIER_NO_BOMBS,,No Bombs,,,,,,,,,,,,,,,,,没有炸弹,,,,,,,,,,
+MODIFIER_NO_BOMBS_HINT,,There will be no bombs in the level.,,,,,,,,,,,,,,,,,关卡里不会出现炸弹。,,,,,,,,,,
+MODIFIER_PRO_MODE,,Pro Mode,,,,,,,,,,,,,,,,,专业模式,,,,,,,,,,
+MODIFIER_PRO_MODE_HINT,,There's no tolerance in hitting cubes.,,,,,,,,,,,,,,,,,削砍方块没有误差范围。,,,,,,,,,,
+MODIFIER_SLOWER_SONG,,Slower Song,,,,,,,,,,,,,,,,,节奏放慢,,,,,,,,,,
+MODIFIER_SLOWER_SONG_HINT,,Song will play slower.,,,,,,,,,,,,,,,,,歌曲播放速度更慢。,,,,,,,,,,
+MODIFIER_STRICT_ANGLES,,Strict Angles,,,,,,,,,,,,,,,,,严格角度,,,,,,,,,,
+MODIFIER_STRICT_ANGLES_HINT,,Only really precise cuts will be evaulated as good.,,,,,,,,,,,,,,,,,只有相当精确的削砍才算做精准。,,,,,,,,,,
+MODIFIER_SUPER_FAST_NOTES,,Super Fast Notes,,,,,,,,,,,,,,,,,超快音符,,,,,,,,,,
+MODIFIER_SUPER_FAST_NOTES_HINT,,Cubes will move super fast.,,,,,,,,,,,,,,,,,方块移动得超级快。,,,,,,,,,,
+MODIFIERS_TOTAL_MULTIPLIER,,Total Multiplier,,,,,,,,,,,,,,,,,总系数,,,,,,,,,,
+MODIFIERS_MAX_RANK_WITH_MODIFIERS,,Max Rank with current modifiers,,,,,,,,,,,,,,,,,当前模组使用者的最高排名,,,,,,,,,,
+STEAM_BOUGHT_CONTENT_INFO,,If you bought this content but don't see it here please check in Steam if it was properly downloaded.,,,,,,,,,,,,,,,,,如果你购买本内容，但是没在此处看到，请检查确认Steam是否已正常下载。,,,,,,,,,,
+STATUS_DOWNLOADING,,Downloading,,,,,,,,,,,,,,,,,正在下载,,,,,,,,,,
+STATUS_ERROR_GETTING_DATA,,Error getting data.,,,,,,,,,,,,,,,,,获取数据错误,,,,,,,,,,
+MENU_GRAPHICS,,Graphics,,,,,,,,,,,,,,,,,图像,,,,,,,,,,
+MENU_ADVANCED_GRAPHICS,,Advanced Graphics,,,,,,,,,,,,,,,,,高级图像,,,,,,,,,,
+MENU_ROOM_ADJUST,,Room Adjust,,,,,,,,,,,,,,,,,空间校准,,,,,,,,,,
+MENU_SMOOTH_CAMERA,,Smooth Camera,,,,,,,,,,,,,,,,,平滑摄像头,,,,,,,,,,
+MENU_OTHERS,,Others,,,,,,,,,,,,,,,,,其他,,,,,,,,,,
+SETTINGS_MIRROR_QUALITY,,Mirror Quality,,,,,,,,,,,,,,,,,镜面反射效果,,,,,,,,,,
+SETTINGS_SMOKE,,Smoke,,,,,,,,,,,,,,,,,烟雾效果,,,,,,,,,,
+SETTINGS_BLOOM_FOG_QUALITY,,Bloom Fog Quality,,,,,,,,,,,,,,,,,烟雾辉光效果,,,,,,,,,,
+SETTINGS_BLOOM_POST_PROCESS,,Bloom Post Process,,,,,,,,,,,,,,,,,辉光处理效果,,,,,,,,,,
+SETTINGS_ROOM_X_OFFSET,,X Offset,,,,,,,,,,,,,,,,,X 轴偏移量,,,,,,,,,,
+SETTINGS_ROOM_Y_OFFSET,,Y Offset,,,,,,,,,,,,,,,,,Y 轴偏移量,,,,,,,,,,
+SETTINGS_ROOM_Z_OFFSET,,Z Offset,,,,,,,,,,,,,,,,,Z 轴偏移量,,,,,,,,,,
+SETTINGS_ROOM_ROTATION,,Rotation,,,,,,,,,,,,,,,,,旋转,,,,,,,,,,
+SETTINGS_NON_VR_RESOLUTION,,Non VR Resolution,,,,,,,,,,,,,,,,,非 VR 分辨率,,,,,,,,,,
+SETTINGS_FULLSCREEN,,Fullscreen,,,,,,,,,,,,,,,,,全屏,,,,,,,,,,
+SETTINGS_RENDERING_SCALE,,Rendering Scale,,,,,,,,,,,,,,,,,渲染级别,,,,,,,,,,
+SETTINGS_ANTIALIASING_MSAA,,Antialiasing (MSAA),,,,,,,,,,,,,,,,,抗锯齿,,,,,,,,,,
+SETTINGS_VOLUME,,Volume,,,,,,,,,,,,,,,,,音量,,,,,,,,,,
+SETTINGS_PAUSE_PRESS_DURATION,,Pause Press Duration,,,,,,,,,,,,,,,,,长按暂停所需时长,,,,,,,,,,
+SETTINGS_SMOOTH_CAMERA,,Smooth Camera,,,,,,,,,,,,,,,,,平滑摄像头,,,,,,,,,,
+SETTINGS_SMOOTH_CAMERA_INFO,,"Enabling this feature will replace Beat Sabers desktop window with a smoothed, customised field of view, suitable for recording & streaming",,,,,,,,,,,,,,,,,开启此功能会将《节奏空间》桌面窗口变成更平滑的定制视野，适合录制或直播,,,,,,,,,,
+SETTINGS_SMOOTH_CAMERA_WARNING,,Smooth camera is expensive and can cause bad performance on some hardware configurations. ,,,,,,,,,,,,,,,,,平滑摄像头很耗资源，在某些硬件配置下可能导致效果不佳。 ,,,,,,,,,,
+SETTINGS_FIELD_OF_VIEW,,Field Of View,,,,,,,,,,,,,,,,,视野,,,,,,,,,,
+SETTINGS_SMOOTHNESS,,Smoothness,,,,,,,,,,,,,,,,,平滑度,,,,,,,,,,
+SETTINGS_ON,,On,,,,,,,,,,,,,,,,,开,,,,,,,,,,
+SETTINGS_OFF,,Off,,,,,,,,,,,,,,,,,关,,,,,,,,,,
+SETTINGS_LOW,,Low,,,,,,,,,,,,,,,,,低,,,,,,,,,,
+SETTINGS_HIGH,,High,,,,,,,,,,,,,,,,,高,,,,,,,,,,
+SETTINGS_INSTANT,,Instant,,,,,,,,,,,,,,,,,快速,,,,,,,,,,
+SETTINGS_LONG,,Long,,,,,,,,,,,,,,,,,长期,,,,,,,,,,
+DIFFICULTY_EASY,,Easy,,,,,,,,,,,,,,,,,简单,,,,,,,,,,
+DIFFICULTY_EASY_SHORT,,E,,,,,,,,,,,,,,,,,简单,,,,,,,,,,
+DIFFICULTY_NORMAL,,Normal,,,,,,,,,,,,,,,,,普通,,,,,,,,,,
+DIFFICULTY_NORMAL_SHORT,,N,,,,,,,,,,,,,,,,,普通,,,,,,,,,,
+DIFFICULTY_HARD,,Hard,,,,,,,,,,,,,,,,,困难,,,,,,,,,,
+DIFFICULTY_HARD_SHORT,,H,,,,,,,,,,,,,,,,,困难,,,,,,,,,,
+DIFFICULTY_EXPERT,,Expert,,,,,,,,,,,,,,,,,专家,,,,,,,,,,
+DIFFICULTY_EXPERT_SHORT,,X,,,,,,,,,,,,,,,,,专家,,,,,,,,,,
+DIFFICULTY_EXPERT_PLUS,,Expert+,,,,,,,,,,,,,,,,,专家+,,,,,,,,,,
+DIFFICULTY_EXPERT_PLUS_SHORT,,X+,,,,,,,,,,,,,,,,,专家+,,,,,,,,,,
+DIFFICULTY_UNKNOWN,,Unknown,,,,,,,,,,,,,,,,,未知,,,,,,,,,,
+DIFFICULTY_UNKNOWN_SHORT,,/,,,,,,,,,,,,,,,,,/,,,,,,,,,,
+STAGE_LOCK_HINT,,To continue up you need to finish some levels before this barrier.,,,,,,,,,,,,,,,,,在此关卡之前，你必须完成一些关卡才能继续。,,,,,,,,,,
+CAMPAIGN_MISSION,,Mission,,,,,,,,,,,,,,,,,任务,,,,,,,,,,
+CAMPAIGN_SONG,,"Song
+<color=#ffffff88>{0}</color>",,,,,,,,,,,,,,,,,"歌曲
+<color=#ffffff88>{0}</color>",,,,,,,,,,
+CAMPAIGN_DIFFICULTY,,"Difficulty
+<color=#ffffff88>{0}</color>",,,,,,,,,,,,,,,,,"难度
+<color=#ffffff88>{0}</color>",,,,,,,,,,
+CAMPAIGN_TYPE,,"Type
+<color=#ffffff88>{0}</color>",,,,,,,,,,,,,,,,,"类型
+<color=#ffffff88>{0}</color>",,,,,,,,,,
+CAMPAIGN_MISSION_COMPLETE,,Mission Complete,,,,,,,,,,,,,,,,,任务完成,,,,,,,,,,
+CAMPAIGN_MISSION_FAILED,,Mission Failed,,,,,,,,,,,,,,,,,任务失败,,,,,,,,,,
+CAMPAIGN_MODIFIERS,,Modifiers,,,,,,,,,,,,,,,,,模组使用者,,,,,,,,,,
+CAMPAIGN_OBJECTIVES,,Objectives,,,,,,,,,,,,,,,,,目标,,,,,,,,,,
+CAMPAIGN_CHARACTERISTIC,,characteristic,,,,,,,,,,,,,,,,,特征,,,,,,,,,,
+CAMPAIGN_FINISH_LEVEL,,"Finish
+Level",,,,,,,,,,,,,,,,,"完成
+关卡",,,,,,,,,,
+LEVEL_NO_ARROWS,,No Arrows,,,,,,,,,,,,,,,,,没有箭头,,,,,,,,,,
+LEVEL_NO_ARROWS_HINT,,No Arrows,,,,,,,,,,,,,,,,,没有箭头,,,,,,,,,,
+LEVEL_ONE_SABER,,One Saber,,,,,,,,,,,,,,,,,一把光刃,,,,,,,,,,
+LEVEL_ONE_SABER_HINT,,One Saber,,,,,,,,,,,,,,,,,一把光刃,,,,,,,,,,
+LEVEL_STANDARD,,Standard,,,,,,,,,,,,,,,,,标准,,,,,,,,,,
+LEVEL_STANDARD_HINT,,Standard,,,,,,,,,,,,,,,,,标准,,,,,,,,,,
+PROMPT_INFORMATION,,Information,,,,,,,,,,,,,,,,,信息,,,,,,,,,,
+PROMPT_HAVENT_PLAYED_YET,,It looks like you haven't played Beat Saber yet. Would you like to play tutorial first?,,,,,,,,,,,,,,,,,看起来你以前没玩过《节奏空间》。你要先玩玩教程吗？,,,,,,,,,,
+PROMPT_YES,,Yes,,,,,,,,,,,,,,,,,是,,,,,,,,,,
+PROMPT_NO,,No,,,,,,,,,,,,,,,,,否,,,,,,,,,,
+RESULTS_LEVEL_FAILED,,Level FAILED,,,,,,,,,,,,,,,,,通关失败,,,,,,,,,,
+OBJECTIVE_BAD_CUTS,,Bad Cuts,,,,,,,,,,,,,,,,,勉强击中,,,,,,,,,,
+OBJECTIVE_COMBO,,Combo,,,,,,,,,,,,,,,,,连击,,,,,,,,,,
+OBJECTIVE_FULL_COMBO,,Full Combo,,,,,,,,,,,,,,,,,全连击,,,,,,,,,,
+OBJECTIVE_HANDS_MOVEMENT,,Hands Movement,,,,,,,,,,,,,,,,,双手移动,,,,,,,,,,
+OBJECTIVE_MISS,,Miss,,,,,,,,,,,,,,,,,错失,,,,,,,,,,
+OBJECTIVE_SCORE,,Score,,,,,,,,,,,,,,,,,得分,,,,,,,,,,
+MISSION_NEW_OBJECTIVE_TITLE,,New Objective,,,,,,,,,,,,,,,,,新目标,,,,,,,,,,
+MISSION_HELP_MIN_SCORE_TITLE,,In this mission your score must be higher than the specified minimum.,,,,,,,,,,,,,,,,,在此任务中，你的分数必须高于设定的最低值。,,,,,,,,,,
+MISSION_HELP_MAX_BAD_CUTS_TITLE,,In this mission you can make only limited amount of mistakes (<color=#ffffff88>BAD CUTS</color> and <color=#ffffff88>MISSED</color> notes),,,,,,,,,,,,,,,,,在此任务中，你能犯错误的次数十分有限（<color=#ffffff88>勉强击中</color>和<color=#ffffff88>漏过</color>音符）,,,,,,,,,,
+MISSION_HELP_MIN_COMBO_TITLE,,In this mission you must reach specified <color=#ffffff88>combo</color> number.,,,,,,,,,,,,,,,,,在此任务中，你必须达到特定的<color=#ffffff88>连击</color>数量。,,,,,,,,,,
+MISSION_HELP_MIN_HANDS_MOVEMENT_TITLE,,In this mission your goal is to move your <color=#FFFFFF88>hands</color> enough to travel the <color=#FFFFFF88>specified MINIMUM distance.</color>,,,,,,,,,,,,,,,,,在此任务中，你的目标是让<color=#FFFFFF88>双手</color>的移动距离超过<color=#FFFFFF88>特定的最小距离。</color>,,,,,,,,,,
+MISSION_HELP_MIN_HANDS_MOVEMENT_DESCRIPTION,,To complete this objective you usually just need to move with your hands a lot. Don't use just your wrists but whole arms.,,,,,,,,,,,,,,,,,要完成此目标，你通常需要大幅度移动双手。不要仅甩动手腕，要摆动手臂。,,,,,,,,,,
+MISSION_HELP_MAX_COMBO_TITLE,,In this mission you have to keep your <color=#FFFFFF88>combo</color> below specified number.,,,,,,,,,,,,,,,,,在此任务中，你必须将<color=#FFFFFF88>连击</color>保持在一个特定的数字之内。,,,,,,,,,,
+MISSION_HELP_MAX_COMBO_TITLE_DESCRIPTION,,One way how to complete this kind of objective is to make deliberate mistakes.,,,,,,,,,,,,,,,,,完成此类目标的方法是故意犯错。,,,,,,,,,,
+BUTTON_LEVEL_EDITOR,,Level Editor,,,,,,,,,,,,,,,,,关卡编辑器,,,,,,,,,,
+SETTINGS_SCREEN_DISTORTION_EFFECTS,,Screen Distortion Effects,,,,,,,,,,,,,,,,,屏幕失真效果,,,,,,,,,,
+CUSTOM_LEVELS_LEADERBOARDS_NOT_SUPPORTED,,Leaderboards for custom levels are not supported.,,,,,,,,,,,,,,,,,,,,,,,,,,,
+TITLE_CUSTOM_LEVELS,,Custom Levels,,,,,,,,,,,,,,,,,,,,,,,,,,,
+SETTINGS_AUDIO_LATENCY,,Audio Latency,,,,,,,,,,,,,,,,,,,,,,,,,,,
+SETTINGS_AUDIO_LATENCY_INFO,,This setting can help you compensate an audio delay of your sound system. Adjust the latency value to sync audio with video. Always use your headset to do this calibration.,,,,,,,,,,,,,,,,,,,,,,,,,,,
+PLAYER_SETTINGS_AUTO_RESTART,,Auto Restart on Fail,,,,,,,,,,,,,,,,,,,,,,,,,,,
+TITLE_NEW_HIGHSCORE,,NEW HIGHSCORE,,,,,,,,,,,,,,,,,新的高分,,,,,,,,,,
+STEAM_STORE_DOESNT_OPEN_HINT,,"If the store window doesn't open after pressing the buy button, please try to purchase this item directly on Steam. We are sorry for the inconvenience.",,,,,,,,,,,,,,,,,,,,,,,,,,,
